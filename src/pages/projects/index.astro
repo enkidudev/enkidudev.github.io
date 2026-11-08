@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../../components/BaseLayout.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { projects } from "../../data/projects";
+---
+<BaseLayout title="Projects | Arman Mishra" description="Security tools and lab environments built by Arman Mishra.">
+  <section class="page-hero container">
+    <div class="eyebrow">PROJECTS / BUILT THROUGH PRACTICE</div>
+    <h1>Tools, systems, and experiments<span class="hero-accent">Made to understand security better.</span></h1>
+    <p class="lead">A selection of personal security tooling and environments developed through hands-on work.</p>
+  </section>
+  <section class="container section">
+    <div class="project-grid project-grid-light">
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </section>
+</BaseLayout>

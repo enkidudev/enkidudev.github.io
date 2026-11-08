@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import { certifications } from "../data/profile";
+---
+<BaseLayout title="Certifications | Arman Mishra" description="Verified cybersecurity certifications held by Arman Mishra.">
+  <section class="page-hero container">
+    <div class="eyebrow">CREDENTIALS / VERIFIED LEARNING</div>
+    <h1>Certifications<span class="hero-accent">Knowledge put to the test.</span></h1>
+    <p class="lead">Professional credentials supported by practical labs, technical reporting, and hands-on penetration-testing work.</p>
+  </section>
+  <section class="container section">
+    <div class="cert-list">
+      {certifications.map((cert, index) => (
+        <article class="cert-detail-card">
+          <div class="cert-index">0{index + 1}</div>
+          <div class="cert-body">
+            <span class="eyebrow">{cert.issuer}</span>
+            <h2>{cert.name}</h2>
+            <p>{cert.description}</p>
+            <a class="button button-secondary" href={cert.url} target="_blank" rel="noopener noreferrer">Verify credential <span>↗</span></a>
+          </div>
+          <div class="cert-monogram">{cert.short}</div>
+        </article>
+      ))}
+    </div>
+    <div class="note-panel">
+      <strong>Education in progress</strong>
+      <p>BCA, Specialization in Cyber Security · Lovely Professional University · Expected graduation 2028.</p>
+    </div>
+  </section>
+</BaseLayout>

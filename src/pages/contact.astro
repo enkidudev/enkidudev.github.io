@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import { profile } from "../data/profile";
+---
+<BaseLayout title="Contact | Arman Mishra" description="Contact Arman Mishra about security research, penetration testing, CTF development, and opportunities.">
+  <section class="page-hero container">
+    <div class="eyebrow">CONTACT / START A CONVERSATION</div>
+    <h1>Let's talk security<span class="hero-accent">Have a project worth investigating?</span></h1>
+    <p class="lead">For penetration-testing opportunities, security research, CTF development, or collaboration, get in touch.</p>
+  </section>
+  <section class="container section">
+    <div class="contact-grid">
+      <a class="contact-card contact-card-primary" href={`mailto:${profile.email}?subject=Hello%20Arman`}>
+        <span>01 / EMAIL</span><strong>{profile.email}</strong><small>Open your email application ↗</small>
+      </a>
+      <a class="contact-card" href={profile.linkedin} target="_blank" rel="noopener noreferrer">
+        <span>02 / LINKEDIN</span><strong>Connect professionally</strong><small>linkedin.com/in/arman-cybersec ↗</small>
+      </a>
+      <a class="contact-card" href={profile.github} target="_blank" rel="noopener noreferrer">
+        <span>03 / GITHUB</span><strong>Explore my code</strong><small>github.com/enkidudev ↗</small>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

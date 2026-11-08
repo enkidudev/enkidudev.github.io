@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+const resumeUrl = "/resume/Arman_Mishra_Cybersecurity_Resume.pdf";
+---
+<BaseLayout title="Resume | Arman Mishra" description="Download the cybersecurity resume of Arman Mishra.">
+  <section class="page-hero container">
+    <div class="eyebrow">RESUME / PROFESSIONAL PROFILE</div>
+    <h1>Arman Mishra<span class="hero-accent">Penetration Tester · Security Researcher</span></h1>
+    <p class="lead">A concise overview of certifications, technical skills, independent research, CTF contributions, and selected projects.</p>
+    <div class="hero-actions">
+      <a class="button button-primary" href={resumeUrl} download>Download resume <span>↓</span></a>
+      <a class="button button-secondary" href="mailto:arman.mishra.dev@gmail.com">Request a conversation <span>↗</span></a>
+    </div>
+  </section>
+  <section class="container section">
+    <div class="resume-frame">
+      <iframe src={resumeUrl} title="Arman Mishra cybersecurity resume"></iframe>
+    </div>
+    <p class="small-note">If the preview is unavailable in your browser, use the Download resume link above.</p>
+  </section>
+</BaseLayout>

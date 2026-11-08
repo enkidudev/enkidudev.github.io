@@ -1,0 +1,17 @@
+---
+import { profile } from "../data/profile";
+---
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <a class="footer-wordmark" href="/">arman<span>.</span></a>
+      <p class="footer-note">THE WILD MAN LEARNT TO ENUMERATE.</p>
+    </div>
+    <div class="footer-links">
+      <a href={profile.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+      <a href={`mailto:${profile.email}`}>Email ↗</a>
+    </div>
+    <p class="footer-copy">© {new Date().getFullYear()} Arman Mishra · Enkidu</p>
+  </div>
+</footer>

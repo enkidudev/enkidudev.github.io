@@ -1,0 +1,49 @@
+---
+import BaseLayout from "../../components/BaseLayout.astro";
+import { writeups } from "../../data/writeups";
+
+export function getStaticPaths() {
+  return writeups.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const Content = post.Content;
+
+const formatDate = (value: string) =>
+  new Intl.DateTimeFormat("en-IN", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date(value));
+---
+<BaseLayout title={`${post.title} | Arman Mishra`} description={post.description}>
+  <header class="container article-header">
+    <div class="eyebrow">FIELD NOTES / {post.id}</div>
+    <h1>{post.title}</h1>
+    <p class="article-description">{post.description}</p>
+    <div class="article-meta">
+      <span>{post.category}</span>
+      <span>{formatDate(post.date)}</span>
+      {post.difficulty && <span>{post.difficulty}</span>}
+    </div>
+    <div class="tag-list tag-list-light">
+      {post.tags.map((tag: string) => <span class="tag">{tag}</span>)}
+    </div>
+  </header>
+
+  <section class="container article-layout">
+    <article class="article-prose">
+      <Content />
+    </article>
+    <aside class="article-sidebar">
+      <div class="eyebrow">OPERATOR NOTES</div>
+      <strong>{post.id}</strong>
+      <p>Technical notes by Arman Mishra / Enkidu.</p>
+      <p>Claims and conclusions should be read in the context of the evidence presented in this article.</p>
+      <a class="article-back" href="/writeups/">← All writeups</a>
+    </aside>
+  </section>
+</BaseLayout>

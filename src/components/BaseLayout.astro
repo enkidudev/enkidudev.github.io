@@ -1,0 +1,106 @@
+---
+import "../styles/global.css";
+import SiteHeader from "./SiteHeader.astro";
+import SiteFooter from "./SiteFooter.astro";
+
+const {
+  title = "Arman Mishra | Enkidu",
+  description = "Arman Mishra, penetration tester and security researcher. Web, network, Windows, Linux, and Active Directory security.",
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, "https://enkidudev.github.io").toString();
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#10271f" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <SiteHeader />
+    <main>
+      <slot />
+    </main>
+    <SiteFooter />
+
+    <script>
+      import { cascade, reveal } from "@awesome-reveal/core";
+
+      // A restrained motion system: short entrances, small offsets, and no looping effects.
+      // The core API leaves server-rendered content visible until the browser script runs.
+      const gentle = {
+        from: "bottom",
+        duration: 620,
+        threshold: 0.12,
+      };
+
+      // Homepage: a measured entrance for the introduction and the ASCII panel.
+      cascade(".hero-copy", {
+        from: "left",
+        interval: 85,
+        duration: 620,
+        threshold: 0.12,
+      });
+      reveal(".hero-card", {
+        from: { opacity: 0, scale: 0.96, y: 18 },
+        duration: 780,
+        threshold: 0.12,
+      });
+
+      // Inner page introductions and section headings.
+      cascade(".page-hero", {
+        from: "bottom",
+        interval: 75,
+        duration: 620,
+        threshold: 0.12,
+      });
+      reveal(".section-heading", gentle);
+
+      // Staggered content grids.
+      cascade(".metrics-grid", { ...gentle, interval: 75 });
+      cascade(".principle-grid", { ...gentle, interval: 95 });
+      cascade(".project-grid", { ...gentle, interval: 110 });
+      cascade(".credential-preview-grid", { ...gentle, interval: 110 });
+      cascade(".cert-list", { ...gentle, interval: 110 });
+      cascade(".timeline", {
+        from: "left",
+        interval: 130,
+        duration: 650,
+        threshold: 0.12,
+      });
+      cascade(".skill-groups", { ...gentle, interval: 90 });
+      cascade(".contact-grid", { ...gentle, interval: 100 });
+      cascade(".github-projects", { ...gentle, interval: 100 });
+      cascade(".github-stats-grid", { ...gentle, interval: 90 });
+      cascade(".writeup-grid", { ...gentle, interval: 100 });
+
+      // Project topology and article reading surfaces.
+      reveal(".lab-topology", {
+        from: { opacity: 0, scale: 0.97, y: 20 },
+        duration: 700,
+        threshold: 0.12,
+      });
+      reveal(".side-note, .note-panel, .writeup-intro, .empty-state", gentle);
+      reveal(".article-header", { ...gentle, duration: 700 });
+      reveal(".article-sidebar", {
+        from: "right",
+        duration: 620,
+        threshold: 0.12,
+      });
+      reveal(".article-prose h2, .article-prose h3", {
+        from: "bottom",
+        duration: 500,
+        threshold: 0.1,
+      });
+      reveal(".split-section > *, .contact-banner > *", gentle);
+    </script>
+  </body>
+</html>

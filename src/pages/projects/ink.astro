@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../../components/BaseLayout.astro";
+---
+<BaseLayout title="Ink | Arman Mishra Projects" description="Ink, a local credential notebook for penetration-testing workflows.">
+  <section class="page-hero container">
+    <div class="eyebrow">PROJECT / 002 · OPERATOR WORKFLOW</div>
+    <h1>Ink<span class="hero-accent">Keep the evidence organized.</span></h1>
+    <p class="lead">A lightweight credential notebook designed to keep identities, authentication results, and credential-reuse observations organized during an assessment.</p>
+  </section>
+  <section class="container section content-layout">
+    <aside class="side-note"><span>DESIGN PRINCIPLE</span><strong>Record what was found, where it worked, and what was actually validated.</strong></aside>
+    <div class="prose">
+      <h2>Purpose</h2>
+      <p>Ink is a local CLI utility for maintaining structured notes about discovered users, credentials, and authentication observations. It was built to reduce scattered credential notes during multi-host assessments.</p>
+      <h2>Workflow</h2>
+      <ul>
+        <li>Record multiple users and associated passwords.</li>
+        <li>Append notes about where a credential was discovered or validated.</li>
+        <li>Track reuse observations across hosts and services.</li>
+        <li>List and edit stored records.</li>
+        <li>Export notes to a reviewable report format when required.</li>
+      </ul>
+      <h2>Technology</h2>
+      <div class="tag-list tag-list-light"><span class="tag">Python</span><span class="tag">SQLite</span><span class="tag">CLI</span></div>
+      <p>Ink is a personal operator tool. A public source repository has not been linked here.</p>
+    </div>
+  </section>
+</BaseLayout>

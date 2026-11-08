@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import MetricCard from "../components/MetricCard.astro";
+import { metrics } from "../data/profile";
+---
+<BaseLayout title="Achievements & Contributions | Arman Mishra" description="CTF achievements, independent vulnerability research, and CTF challenge development by Arman Mishra.">
+  <section class="page-hero container">
+    <div class="eyebrow">FIELD EXPERIENCE / RECOGNITION</div>
+    <h1>Work beyond the coursework<span class="hero-accent">Research. Build. Contribute.</span></h1>
+    <p class="lead">A record of independent vulnerability research, competition achievements, and technical contributions to hands-on security challenges.</p>
+  </section>
+  <section class="metrics-band">
+    <div class="container metrics-grid">
+      {metrics.map((metric) => <MetricCard {...metric} />)}
+    </div>
+  </section>
+  <section class="container section timeline">
+    <article class="timeline-item">
+      <span class="timeline-number">01 / INDEPENDENT RESEARCH</span>
+      <h2>Vulnerability disclosure & bug bounty</h2>
+      <p>Independently researched and reported approximately 5–6 security findings. Two findings resulted in paid bounty awards. Additional independent security hunts involved identifying, validating, and reporting vulnerabilities.</p>
+      <p class="small-note">Public case studies will be limited to disclosures that are safe to publish and do not expose confidential programme or target information.</p>
+    </article>
+    <article class="timeline-item">
+      <span class="timeline-number">02 / CTF ENGINEERING</span>
+      <h2>Script Jackers × Ginius Cyber Security Council</h2>
+      <p>Contributed to the creation and development of the HackVerse CTF platform. Challenge work included forensic challenges at Medium, Hard, and Extreme difficulty, as well as boot-to-root boxes at Easy, Medium, and Hard difficulty spanning web and network concepts.</p>
+      <p>Received an appreciation letter from Ginius Cyber Security Council recognizing the contribution to HackVerse.</p>
+      <a class="text-link" href="/documents/GCS_HackVerse_Appreciation_Letter.pdf" target="_blank" rel="noopener noreferrer">View appreciation letter <span>↗</span></a>
+    </article>
+    <article class="timeline-item">
+      <span class="timeline-number">03 / PRACTICAL TESTING</span>
+      <h2>CPTS & Hack The Box environments</h2>
+      <p>Hands-on practice across web, network, Windows, Linux, and Active Directory environments, including enumeration, exploitation, privilege escalation, lateral movement, and pivoting.</p>
+      <a class="text-link" href="/projects/">Explore selected projects <span>↗</span></a>
+    </article>
+  </section>
+</BaseLayout>

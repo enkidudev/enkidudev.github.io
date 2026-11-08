@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../../components/BaseLayout.astro";
+---
+<BaseLayout title="Active Directory Attack Lab | Arman Mishra" description="A custom Active Directory lab designed and compromised by Arman Mishra.">
+  <section class="page-hero container">
+    <div class="eyebrow">PROJECT / 003 · LAB ENGINEERING</div>
+    <h1>Active Directory Attack Lab<span class="hero-accent">Build the environment. Understand the attack paths.</span></h1>
+    <p class="lead">A custom, isolated Active Directory environment designed to explore credential exposure, authentication weaknesses, and domain-compromise paths.</p>
+  </section>
+  <section class="container section">
+    <div class="lab-topology">
+      <div class="topology-node dc-node">
+        <span>DOMAIN CONTROLLER</span>
+        <strong>RA01</strong>
+        <small>Active Directory Domain Services</small>
+      </div>
+      <div class="topology-branches">
+        <div class="topology-node"><span>USER WORKSTATION</span><strong>Horus01</strong></div>
+        <div class="topology-node"><span>USER WORKSTATION</span><strong>Osiris01</strong></div>
+      </div>
+      <div class="topology-users">4 DOMAIN USERS</div>
+    </div>
+    <div class="content-layout lab-details">
+      <aside class="side-note"><span>ENVIRONMENT</span><strong>1 domain controller · 2 user workstations · 4 users</strong></aside>
+      <div class="prose">
+        <h2>Environment</h2>
+        <p>The lab contains RA01 as the domain controller, Horus01 and Osiris01 as user workstations, and four domain users. The environment was built and compromised to test several independent techniques and paths.</p>
+        <h2>Techniques demonstrated</h2>
+        <ul>
+          <li>Credential recovery from Windows Credential Manager.</li>
+          <li>LNK abuse.</li>
+          <li>Kerberoasting.</li>
+          <li>LLMNR poisoning.</li>
+          <li>NTLM relay.</li>
+        </ul>
+        <h2>Learning outcomes</h2>
+        <p>The project explores how endpoint configuration, name resolution, authentication protocols, and credential handling can combine into domain-level attack paths. The public portfolio describes the lab at a high level; sensitive credentials and reusable attack artefacts are not published.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

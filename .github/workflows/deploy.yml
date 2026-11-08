@@ -1,0 +1,70 @@
+name: Deploy Astro site to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  repository_dispatch:
+    types: [writeups_updated]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+env:
+  # Replace this with the actual owner/repository for your writeups.
+  WRITEUPS_REPO: enkidudev/security-writeups
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout portfolio
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.16.0
+          cache: npm
+
+      - name: Fetch the latest writeups
+        env:
+          WRITEUPS_REPO_READ_TOKEN: ${{ secrets.WRITEUPS_REPO_READ_TOKEN }}
+        run: |
+          if [ -n "$WRITEUPS_REPO_READ_TOKEN" ]; then
+            git clone --depth 1 "https://x-access-token:${WRITEUPS_REPO_READ_TOKEN}@github.com/${WRITEUPS_REPO}.git" writeups-source
+          else
+            git clone --depth 1 "https://github.com/${WRITEUPS_REPO}.git" writeups-source
+          fi
+
+          mkdir -p src/content/writeups
+          rsync -a --delete --exclude=".git" writeups-source/ src/content/writeups/
+          rm -rf writeups-source
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Astro site
+        run: npm run build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
