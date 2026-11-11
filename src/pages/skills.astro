@@ -5,14 +5,13 @@ import { skillGroups } from "../data/profile";
 <BaseLayout title="Technical Skills | Arman Mishra" description="Technical tools and skills used by Arman Mishra across penetration testing, Active Directory, web security, and research.">
   <section class="page-hero container">
     <div class="eyebrow">TOOLKIT / TECHNICAL SKILLS</div>
-    <h1>Tools are means, not methodology<span class="hero-accent">Understand what they prove.</span></h1>
-    <p class="lead">A working toolkit assembled through personal labs, CPTS preparation, CTF work, and hands-on security testing.</p>
+    <h1>Technical toolkit.</h1>
+    <p class="lead">A working toolkit assembled through personal labs, CPTS training, CTF work, and hands-on security testing.</p>
   </section>
   <section class="container section">
     <div class="skill-groups">
-      {skillGroups.map((group, index) => (
+      {skillGroups.map((group) => (
         <article class="skill-group">
-          <div class="skill-group-number">0{index + 1}</div>
           <div>
             <h2>{group.title}</h2>
             <div class="tag-list tag-list-light">

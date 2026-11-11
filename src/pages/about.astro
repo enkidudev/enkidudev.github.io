@@ -1,29 +1,26 @@
 ---
+import { Image } from "astro:assets";
 import BaseLayout from "../components/BaseLayout.astro";
-import { profile } from "../data/profile";
+import notebook from "../assets/ink-notebook.webp";
 ---
-<BaseLayout title="About Arman Mishra | Enkidu" description="About Arman Mishra, penetration tester and security researcher.">
-  <section class="page-hero container">
-    <div class="eyebrow">ABOUT / THE PERSON BEHIND THE TERMINAL</div>
-    <h1>Arman Mishra<span class="hero-accent">Known online as Enkidu.</span></h1>
-    <p class="lead">A penetration tester and security researcher interested in understanding systems beyond their surface-level behaviour.</p>
-  </section>
+<BaseLayout title="About Arman Mishra | Enkidu" description="Arman Mishra’s background in penetration testing, security research, tool development, and CTFs.">
+  <header class="page-hero container">
+    <p class="eyebrow">About</p>
+    <h1>Arman Mishra <span class="hero-accent">Known online as Enkidu.</span></h1>
+    <p class="lead">Penetration tester, security researcher, and cybersecurity student at Lovely Professional University.</p>
+  </header>
   <section class="container content-layout section">
-    <aside class="side-note">
-      <span>FIELD NOTE / 001</span>
-      <strong>Think before exploiting.</strong>
-      <p>Enumeration is not a formality. It is where understanding begins.</p>
-    </aside>
+    <figure class="about-art">
+      <Image src={notebook} alt="An ink pen resting on an open notebook beside a rain-streaked window" widths={[380, 680, 950]} sizes="(max-width: 760px) 92vw, 420px" quality={72} loading="lazy" />
+    </figure>
     <div class="prose">
-      <h2>What I do</h2>
-      <p>I’m Arman Mishra, known online as Enkidu. I’m pursuing a Bachelor of Computer Applications with a specialization in Cyber Security at Lovely Professional University, with expected graduation in 2028.</p>
-      <p>My work and interests span web application security, network penetration testing, Windows and Linux security, and Active Directory. I enjoy understanding how systems behave, how trust boundaries are formed, and how weaknesses can connect into meaningful attack paths.</p>
-      <h2>How I approach security</h2>
-      <p>I put enumeration before exploitation. A service banner, an authentication prompt, a group membership, or a promising lead is not automatically proof of impact. I prefer to build a hypothesis from evidence, test it with a discriminating check, and document what the results actually demonstrate.</p>
-      <p>Alongside practical testing, I build tools such as Shredder and Ink, develop CTF challenges, and create lab environments to understand offensive techniques from the ground up.</p>
-      <h2>What I’m building towards</h2>
-      <p>My immediate goal is to grow through security research, practical assessments, meaningful projects, and an internship opportunity. Over the longer term, I want to deepen my work in red-team operations and security research.</p>
-      <p class="signature">— Arman / Enkidu</p>
+      <h2>What I work on</h2>
+      <p>I hold the <a href="/certifications/">CPTS and PJPT certifications</a> and am pursuing a Bachelor of Computer Applications with a specialization in Cyber Security. My hands-on work spans web applications, networks, Windows, Linux, and Active Directory.</p>
+      <p>In CTFs, I’ve worked on both sides of the challenge. I’ve competed nationally and helped build forensic challenges and boot-to-root machines for HackVerse. I’ve also independently researched and disclosed vulnerabilities.</p>
+      <h2>What I build</h2>
+      <p>I wrote <a href="/projects/shredder/">Shredder</a> to organize the evidence produced during service enumeration. <a href="/projects/ink/">Ink</a> grew out of a different problem: keeping identities and authentication observations together across an assessment. I built an <a href="/projects/active-directory-lab/">Active Directory lab</a> to study how Windows configuration and identity affect the reach of a security issue.</p>
+      <h2>Where I’m headed</h2>
+      <p>I want to deepen my work in red-team operations and security research, especially around authentication and the trust relationships between services.</p>
     </div>
   </section>
 </BaseLayout>

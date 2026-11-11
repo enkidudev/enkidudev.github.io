@@ -3,47 +3,50 @@ import BaseLayout from "../../components/BaseLayout.astro";
 import { writeups } from "../../data/writeups";
 
 export function getStaticPaths() {
-  return writeups.map((post) => ({
+  return writeups.map((post, index) => ({
     params: { slug: post.slug },
-    props: { post },
+    props: { post, older: writeups[index + 1], newer: writeups[index - 1] },
   }));
 }
 
-const { post } = Astro.props;
+const { post, older, newer } = Astro.props;
 const Content = post.Content;
-
-const formatDate = (value: string) =>
-  new Intl.DateTimeFormat("en-IN", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(new Date(value));
+const headings = post.headings.filter(({ depth }) => depth === 2 || depth === 3);
+const related = writeups.filter((entry) => entry.slug !== post.slug &&
+  (entry.category === post.category || entry.tags.some((tag) => post.tags.includes(tag)))).slice(0, 3);
+const formatDate = new Intl.DateTimeFormat("en-IN", { dateStyle: "long", timeZone: "UTC" });
 ---
-<BaseLayout title={`${post.title} | Arman Mishra`} description={post.description}>
+<BaseLayout title={`${post.title} | Arman Mishra`} description={post.description} work={{ type: "Article", datePublished: post.date }}>
+  <progress class="reading-progress" data-reading-progress max="1" value="0" aria-label="Article reading progress"></progress>
   <header class="container article-header">
-    <div class="eyebrow">FIELD NOTES / {post.id}</div>
+    <a class="text-link" href="/writeups/">← All writeups</a>
+    <p class="eyebrow">{post.category} / {post.id}</p>
     <h1>{post.title}</h1>
-    <p class="article-description">{post.description}</p>
+    <p class="lead">{post.description}</p>
     <div class="article-meta">
-      <span>{post.category}</span>
-      <span>{formatDate(post.date)}</span>
+      <span>Arman Mishra</span><time datetime={post.date}>{formatDate.format(new Date(post.date))}</time><span>{post.readingMinutes} min read</span>
       {post.difficulty && <span>{post.difficulty}</span>}
     </div>
-    <div class="tag-list tag-list-light">
-      {post.tags.map((tag: string) => <span class="tag">{tag}</span>)}
-    </div>
+    <div class="tag-list">{post.tags.map((tag) => <span class="tag">{tag}</span>)}</div>
   </header>
-
-  <section class="container article-layout">
-    <article class="article-prose">
-      <Content />
-    </article>
-    <aside class="article-sidebar">
-      <div class="eyebrow">OPERATOR NOTES</div>
-      <strong>{post.id}</strong>
-      <p>Technical notes by Arman Mishra / Enkidu.</p>
-      <p>Claims and conclusions should be read in the context of the evidence presented in this article.</p>
-      <a class="article-back" href="/writeups/">← All writeups</a>
-    </aside>
-  </section>
+  <div class="container article-layout">
+    {headings.length > 0 && (
+      <nav class="article-sidebar" aria-label="Table of contents">
+        <strong>On this page</strong>
+        <ul>{headings.map((heading) => <li class:list={[{ indent: heading.depth === 3 }]}><a href={`#${heading.slug}`}>{heading.text}</a></li>)}</ul>
+      </nav>
+    )}
+    <article class="article-prose"><Content /></article>
+  </div>
+  {(related.length > 0 || older || newer) && (
+    <section class="container section article-end" aria-label="More writeups">
+      {related.length > 0 && <div><h2>Related writeups</h2><ul class="editorial-list">{related.map((entry) => <li><a href={`/writeups/${entry.slug}/`}>{entry.title}</a></li>)}</ul></div>}
+      {(older || newer) && (
+        <nav class="article-pagination" aria-label="Writeup navigation">
+          {older && <a href={`/writeups/${older.slug}/`} rel="prev"><small>← Older</small>{older.title}</a>}
+          {newer && <a href={`/writeups/${newer.slug}/`} rel="next"><small>Newer →</small>{newer.title}</a>}
+        </nav>
+      )}
+    </section>
+  )}
 </BaseLayout>

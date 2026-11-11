@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../../components/BaseLayout.astro";
-import SectionHeading from "../../components/SectionHeading.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
 import { projects } from "../../data/projects";
 ---
@@ -10,9 +9,10 @@ import { projects } from "../../data/projects";
     <h1>Tools, systems, and experiments<span class="hero-accent">Made to understand security better.</span></h1>
     <p class="lead">A selection of personal security tooling and environments developed through hands-on work.</p>
   </section>
-  <section class="container section">
+  <section class="container section" aria-labelledby="project-case-studies">
+    <h2 id="project-case-studies" class="section-title">Case studies</h2>
     <div class="project-grid project-grid-light">
-      {projects.map((project) => <ProjectCard project={project} />)}
+      {projects.map((project, index) => <ProjectCard project={project} featured={index === 0} />)}
     </div>
   </section>
 </BaseLayout>
