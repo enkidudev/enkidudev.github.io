@@ -3,7 +3,7 @@ export const profile = {
   alias: "Enkidu",
   title: "Penetration Tester & Security Researcher",
   tagline: "The wild man learnt to enumerate.",
-  email: "arman.mishra.dev@gmail.com",
+  email: "contact@armanmishra.in",
   linkedin: "https://www.linkedin.com/in/arman-cybersec/",
   github: "https://github.com/enkidudev",
   education: "BCA, Specialization in Cyber Security",
@@ -73,5 +73,5 @@ export const skillGroups = [
 export const socialLinks = [
   { label: "GitHub", url: "https://github.com/enkidudev" },
   { label: "LinkedIn", url: "https://www.linkedin.com/in/arman-cybersec/" },
-  { label: "Email", url: "mailto:arman.mishra.dev@gmail.com" },
+  { label: "Email", url: `mailto:${profile.email}` },
 ];
