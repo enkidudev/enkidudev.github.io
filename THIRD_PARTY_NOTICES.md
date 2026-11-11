@@ -1,11 +1,5 @@
 # Third-party notices
 
-## Awesome Reveal
-
-This portfolio uses `@awesome-reveal/core` version `1.0.0-next.11` for scroll-triggered reveal and staggered animations.
-
-- Project: https://github.com/awesome-reveal/awesome-reveal
-- Documentation: https://awesome-reveal.dev/
-- License: MIT
-
-The dependency is pinned to a release-candidate version. Review upstream release notes before upgrading.
+- Instrument Serif, Inter, and IBM Plex Mono are distributed through Fontsource under the SIL Open Font License.
+- Lucide icons are used through Astro Icon. Lucide is distributed under the ISC license, with the upstream Feather attribution preserved in the Lucide package.
+- Artwork on the home and About pages was generated for this portfolio. The sharing image is cropped from the homepage artwork.

@@ -1,106 +1,78 @@
 ---
+import "@fontsource/instrument-serif/latin-400.css";
+import "@fontsource/instrument-serif/latin-400-italic.css";
+import "@fontsource-variable/inter/wght.css";
+import "@fontsource/ibm-plex-mono/latin-400.css";
 import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
+import { profile, certifications } from "../data/profile";
 import SiteHeader from "./SiteHeader.astro";
 import SiteFooter from "./SiteFooter.astro";
 
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+  work?: { type: "Article" | "CreativeWork"; datePublished?: string };
+}
+
 const {
   title = "Arman Mishra | Enkidu",
-  description = "Arman Mishra, penetration tester and security researcher. Web, network, Windows, Linux, and Active Directory security.",
+  description = "Arman Mishra, penetration tester and security researcher.",
+  noindex = false,
+  work,
 } = Astro.props;
-const canonical = new URL(Astro.url.pathname, "https://enkidudev.github.io").toString();
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const socialImage = new URL("/social-cover.jpg", Astro.site).href;
+const siteUrl = Astro.site!.href;
+const person = {
+  "@type": "Person",
+  "@id": siteUrl + "#arman",
+  name: profile.name,
+  alternateName: profile.alias,
+  jobTitle: profile.title,
+  url: siteUrl,
+  sameAs: [profile.github, profile.linkedin],
+  hasCredential: certifications.map(({ name, issuer }) => ({
+    "@type": "EducationalOccupationalCredential", name, recognizedBy: { "@type": "Organization", name: issuer },
+  })),
+};
+const graph = [
+  person,
+  { "@type": "WebSite", "@id": siteUrl + "#website", name: "Arman Mishra | Enkidu", url: siteUrl, publisher: { "@id": person["@id"] } },
+  ...(work ? [{
+    "@type": work.type, name: title, headline: title, description, url: canonical,
+    datePublished: work.datePublished, author: { "@id": person["@id"] },
+  }] : []),
+];
+const structuredData = JSON.stringify({ "@context": "https://schema.org", "@graph": graph }).replaceAll("<", "\\u003c");
 ---
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#10271f" />
+    <meta name="theme-color" content="#111613" />
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    {!noindex && <link rel="canonical" href={canonical} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={work?.type === "Article" ? "article" : "website"} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:alt" content="An ink illustration of a wanderer facing a misty forest" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={structuredData} />
     <title>{title}</title>
+    <ClientRouter fallback="none" />
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <SiteHeader />
-    <main>
-      <slot />
-    </main>
+    <main id="main-content" tabindex="-1"><slot /></main>
     <SiteFooter />
-
-    <script>
-      import { cascade, reveal } from "@awesome-reveal/core";
-
-      // A restrained motion system: short entrances, small offsets, and no looping effects.
-      // The core API leaves server-rendered content visible until the browser script runs.
-      const gentle = {
-        from: "bottom",
-        duration: 620,
-        threshold: 0.12,
-      };
-
-      // Homepage: a measured entrance for the introduction and the ASCII panel.
-      cascade(".hero-copy", {
-        from: "left",
-        interval: 85,
-        duration: 620,
-        threshold: 0.12,
-      });
-      reveal(".hero-card", {
-        from: { opacity: 0, scale: 0.96, y: 18 },
-        duration: 780,
-        threshold: 0.12,
-      });
-
-      // Inner page introductions and section headings.
-      cascade(".page-hero", {
-        from: "bottom",
-        interval: 75,
-        duration: 620,
-        threshold: 0.12,
-      });
-      reveal(".section-heading", gentle);
-
-      // Staggered content grids.
-      cascade(".metrics-grid", { ...gentle, interval: 75 });
-      cascade(".principle-grid", { ...gentle, interval: 95 });
-      cascade(".project-grid", { ...gentle, interval: 110 });
-      cascade(".credential-preview-grid", { ...gentle, interval: 110 });
-      cascade(".cert-list", { ...gentle, interval: 110 });
-      cascade(".timeline", {
-        from: "left",
-        interval: 130,
-        duration: 650,
-        threshold: 0.12,
-      });
-      cascade(".skill-groups", { ...gentle, interval: 90 });
-      cascade(".contact-grid", { ...gentle, interval: 100 });
-      cascade(".github-projects", { ...gentle, interval: 100 });
-      cascade(".github-stats-grid", { ...gentle, interval: 90 });
-      cascade(".writeup-grid", { ...gentle, interval: 100 });
-
-      // Project topology and article reading surfaces.
-      reveal(".lab-topology", {
-        from: { opacity: 0, scale: 0.97, y: 20 },
-        duration: 700,
-        threshold: 0.12,
-      });
-      reveal(".side-note, .note-panel, .writeup-intro, .empty-state", gentle);
-      reveal(".article-header", { ...gentle, duration: 700 });
-      reveal(".article-sidebar", {
-        from: "right",
-        duration: 620,
-        threshold: 0.12,
-      });
-      reveal(".article-prose h2, .article-prose h3", {
-        from: "bottom",
-        duration: 500,
-        threshold: 0.1,
-      });
-      reveal(".split-section > *, .contact-banner > *", gentle);
-    </script>
+    <script src="../scripts/site.ts"></script>
   </body>
 </html>

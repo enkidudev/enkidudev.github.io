@@ -1,90 +1,47 @@
 ---
+import { Icon } from "astro-icon/components";
 import BaseLayout from "../../components/BaseLayout.astro";
 import { writeups, writeupCount } from "../../data/writeups";
 
-const formatDate = (value: string) =>
-  new Intl.DateTimeFormat("en-IN", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  }).format(new Date(value));
+const categories = [...new Set(writeups.map((post) => post.category))].sort();
+const tags = [...new Set(writeups.flatMap((post) => post.tags))].sort();
+const dates = new Intl.DateTimeFormat("en-IN", { dateStyle: "medium", timeZone: "UTC" });
 ---
-<BaseLayout title="Writeups & Research | Arman Mishra" description="Technical writeups and security research by Arman Mishra, automatically published from GitHub.">
-  <section class="page-hero container">
-    <div class="eyebrow">RESEARCH / TECHNICAL NOTES</div>
-    <h1>Follow the evidence<span class="hero-accent">Writeups, methods, and findings.</span></h1>
-    <p class="lead">A growing library of technical articles covering penetration testing, Active Directory, web security, and practical research. New published articles are synced from GitHub automatically.</p>
-  </section>
-
-  <section class="container section">
-    <div class="writeup-intro">
-      <div class="eyebrow">PUBLICATION STANDARD</div>
-      <h2>Reproducible. Sanitized. Evidence-led.</h2>
-      <p>Published writeups focus on technical reasoning, validation, impact, and remediation. Confidential bounty targets, customer evidence, credentials, and exam-only material do not belong in this public library.</p>
-    </div>
-
+<BaseLayout title="Writeups & Research | Arman Mishra" description="Technical writeups and security research by Arman Mishra.">
+  <header class="page-hero container">
+    <p class="eyebrow">Research</p>
+    <h1>Field notes.</h1>
+    <p class="lead">Technical writeups on penetration testing, Active Directory, web security, and independent research.</p>
+  </header>
+  <section class="container section" aria-label="Published writeups">
     {writeupCount > 0 ? (
       <>
-        <div class="writeup-search-wrap">
-          <label class="writeup-search-label" for="writeup-search">SEARCH FIELD NOTES</label>
-          <input
-            class="writeup-search"
-            id="writeup-search"
-            type="search"
-            placeholder="Search title, category, tags..."
-            data-writeup-search
-          />
+        <div class="writeup-filters">
+          <label>Search <input type="search" placeholder="Title, topic, or tag" data-writeup-search /></label>
+          <label>Category <select data-writeup-category><option value="">All categories</option>{categories.map((category) => <option value={category}>{category}</option>)}</select></label>
+          <label>Technology <select data-writeup-tag><option value="">All tags</option>{tags.map((tag) => <option value={tag}>{tag}</option>)}</select></label>
         </div>
-        <p class="writeup-count">{writeupCount} published {writeupCount === 1 ? "writeup" : "writeups"} · IDs assigned automatically</p>
-        <div class="writeup-grid" data-writeup-list>
+        <p class="small-note" role="status" data-results-count>{writeupCount} {writeupCount === 1 ? "writeup" : "writeups"}</p>
+        <div class="writeup-grid">
           {writeups.map((post) => (
-            <article
-              class="writeup-card"
-              data-writeup-card
-              data-search={`${post.title} ${post.description} ${post.category} ${post.difficulty} ${post.tags.join(" ")}`.toLowerCase()}
-            >
-              <div class="writeup-card-meta">
-                <span>{post.id} / {post.category}</span>
-                <span>{formatDate(post.date)}</span>
-              </div>
-              <h3><a href={`/writeups/${post.slug}/`}>{post.title}</a></h3>
+            <article class="writeup-card" data-writeup-card data-category={post.category} data-tags={JSON.stringify(post.tags)}
+              data-search={`${post.title} ${post.description} ${post.category} ${post.difficulty} ${post.tags.join(" ")}`.toLowerCase()}>
+              <div class="project-meta"><span>{post.category}</span><time datetime={post.date}>{dates.format(new Date(post.date))}</time></div>
+              <h2><a href={`/writeups/${post.slug}/`}>{post.title}</a></h2>
               <p>{post.description}</p>
               <div class="tag-list">
+                <span class="tag">{post.readingMinutes} min read</span>
                 {post.difficulty && <span class="tag">{post.difficulty}</span>}
-                {post.tags.slice(0, 4).map((tag) => <span class="tag">{tag}</span>)}
+                {post.tags.map((tag) => <span class="tag">{tag}</span>)}
               </div>
-              <a class="writeup-card-link" href={`/writeups/${post.slug}/`}>Read field note <span>↗</span></a>
+              <a class="text-link" href={`/writeups/${post.slug}/`}>Read writeup <Icon name="lucide:arrow-up-right" /></a>
             </article>
           ))}
         </div>
-        <p class="small-note" data-no-results hidden>No writeups match that search.</p>
+        <p data-no-results hidden>No writeups match those filters.</p>
       </>
     ) : (
-      <div class="empty-state">
-        <span class="empty-mark">⌁</span>
-        <h2>Field notes are being prepared.</h2>
-        <p>No public writeups have been published here yet. Once the writeups repository is connected, new published Markdown articles will appear here automatically.</p>
-        <a class="button button-secondary" href="/contact/">Discuss research <span>↗</span></a>
-      </div>
+      <div class="empty-state"><h2>No published writeups yet.</h2><p>In the meantime, browse the <a href="/projects/">project case studies</a>.</p></div>
     )}
   </section>
-
-  <script>
-    const searchInput = document.querySelector<HTMLInputElement>("[data-writeup-search]");
-    const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-writeup-card]"));
-    const noResults = document.querySelector<HTMLElement>("[data-no-results]");
-
-    searchInput?.addEventListener("input", () => {
-      const query = searchInput.value.trim().toLowerCase();
-      let visibleCount = 0;
-
-      cards.forEach((card) => {
-        const matches = (card.dataset.search ?? "").includes(query);
-        card.hidden = !matches;
-        if (matches) visibleCount += 1;
-      });
-
-      if (noResults) noResults.hidden = visibleCount !== 0;
-    });
-  </script>
 </BaseLayout>

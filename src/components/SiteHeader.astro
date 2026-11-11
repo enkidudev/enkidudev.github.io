@@ -1,34 +1,35 @@
 ---
-const items = [
-  { label: "About", href: "/about/" },
-  { label: "Skills", href: "/skills/" },
-  { label: "Credentials", href: "/certifications/" },
-  { label: "Achievements", href: "/achievements/" },
+import { Icon } from "astro-icon/components";
+
+const primary = [
   { label: "Projects", href: "/projects/" },
   { label: "Writeups", href: "/writeups/" },
-  { label: "GitHub", href: "/github/" },
+  { label: "About", href: "/about/" },
   { label: "Contact", href: "/contact/" },
 ];
-const currentPath = Astro.url.pathname;
+const secondary = [
+  { label: "Skills", href: "/skills/" },
+  { label: "Certifications", href: "/certifications/" },
+  { label: "Achievements", href: "/achievements/" },
+  { label: "GitHub", href: "/github/" },
+];
+const current = Astro.url.pathname;
+const active = (href: string) => current === href ? "page" : current.startsWith(href) ? "location" : undefined;
 ---
 <header class="site-header">
   <div class="container header-inner">
-    <a class="wordmark" href="/" aria-label="Arman Mishra home">arman<span>.</span></a>
+    <a class="wordmark" href="/" aria-label="Enkidu home">enkidu<span>.</span></a>
     <nav class="nav-links" aria-label="Main navigation">
-      {items.map((item) => (
-        <a
-          href={item.href}
-          class:list={[
-            "nav-link",
-            currentPath === item.href || (item.href !== "/" && currentPath.startsWith(item.href))
-              ? "is-active"
-              : "",
-          ]}
-        >
-          {item.label}
-        </a>
-      ))}
+      {[...primary, ...secondary].map(({ label, href }) => <a href={href} aria-current={active(href)}>{label}</a>)}
     </nav>
-    <a class="nav-resume" href="/resume/">Resume <span>↗</span></a>
+    <a class="button button-secondary header-resume" href="/resume/" aria-current={active("/resume/")}>Résumé <Icon name="lucide:arrow-up-right" /></a>
+    <details class="mobile-nav" data-mobile-nav>
+      <summary><Icon name="lucide:menu" /> Menu</summary>
+      <nav aria-label="Mobile navigation">
+        {[...primary, ...secondary, { label: "Résumé", href: "/resume/" }].map(({ label, href }) => (
+          <a href={href} aria-current={active(href)}>{label}</a>
+        ))}
+      </nav>
+    </details>
   </div>
 </header>

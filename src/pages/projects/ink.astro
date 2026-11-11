@@ -1,28 +1,28 @@
 ---
 import BaseLayout from "../../components/BaseLayout.astro";
+import { projects } from "../../data/projects";
+
+const project = projects[1];
 ---
-<BaseLayout title="Ink | Arman Mishra Projects" description="Ink, a local credential notebook for penetration-testing workflows.">
-  <section class="page-hero container">
-    <div class="eyebrow">PROJECT / 002 · OPERATOR WORKFLOW</div>
-    <h1>Ink<span class="hero-accent">Keep the evidence organized.</span></h1>
-    <p class="lead">A lightweight credential notebook designed to keep identities, authentication results, and credential-reuse observations organized during an assessment.</p>
-  </section>
+<BaseLayout title="Ink | Arman Mishra Projects" description={project.description} work={{ type: "CreativeWork" }}>
+  <header class="page-hero container">
+    <p class="eyebrow">Project / Operator workflow</p>
+    <h1>Ink</h1>
+    <p class="lead">A local credential notebook for recording where identities were discovered, what was validated, and which observations need follow-up.</p>
+  </header>
   <section class="container section content-layout">
-    <aside class="side-note"><span>DESIGN PRINCIPLE</span><strong>Record what was found, where it worked, and what was actually validated.</strong></aside>
+    <figure class="project-flow">
+      <ol><li>Record the identity and source</li><li>Attach validation notes</li><li>Review observations by user</li><li>Export the notebook for private review</li></ol>
+      <figcaption>Ink’s notebook workflow.</figcaption>
+    </figure>
     <div class="prose">
-      <h2>Purpose</h2>
-      <p>Ink is a local CLI utility for maintaining structured notes about discovered users, credentials, and authentication observations. It was built to reduce scattered credential notes during multi-host assessments.</p>
-      <h2>Workflow</h2>
-      <ul>
-        <li>Record multiple users and associated passwords.</li>
-        <li>Append notes about where a credential was discovered or validated.</li>
-        <li>Track reuse observations across hosts and services.</li>
-        <li>List and edit stored records.</li>
-        <li>Export notes to a reviewable report format when required.</li>
-      </ul>
-      <h2>Technology</h2>
-      <div class="tag-list tag-list-light"><span class="tag">Python</span><span class="tag">SQLite</span><span class="tag">CLI</span></div>
-      <p>Ink is a personal operator tool. A public source repository has not been linked here.</p>
+      <h2>The problem</h2>
+      <p>When observations are spread across terminal history and ad hoc notes, it is easy to lose the source of a credential or the context in which it was validated.</p>
+      <h2>How it works</h2>
+      <p>A Python CLI stores user records, credentials, and notes in a per-notebook SQLite database. Records can be listed and edited, and observations from different hosts or services can be attached to the relevant user.</p>
+      <h2>Review and export</h2>
+      <p>Ink can export a notebook to HTML for private review. The portfolio uses no real notebook entries, credentials, or exported evidence.</p>
+      <div class="tag-list">{project.stack.map((tag) => <span class="tag">{tag}</span>)}</div>
     </div>
   </section>
 </BaseLayout>

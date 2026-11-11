@@ -6,14 +6,33 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "check": "astro check"
   },
   "dependencies": {
+    "@astrojs/mdx": "^4.3.14",
+    "@astrojs/sitemap": "3.6.0",
+    "@expressive-code/plugin-collapsible-sections": "^0.41.7",
+    "@expressive-code/plugin-line-numbers": "^0.41.7",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@fontsource/instrument-serif": "^5.3.0",
+    "@iconify-json/lucide": "^1.2.153",
     "astro": "^5.3.1",
-    "ascii.rest": "^0.4.0",
-    "@awesome-reveal/core": "1.0.0-next.11"
+    "astro-expressive-code": "^0.41.7",
+    "astro-icon": "1.1.5",
+    "sharp": "^0.35.5"
   },
   "engines": {
     "node": ">=20.19.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "astro": {
+      "unifont": "0.7.4"
+    }
   }
 }

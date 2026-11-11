@@ -1,40 +1,35 @@
 ---
 import BaseLayout from "../../components/BaseLayout.astro";
+import { projects } from "../../data/projects";
+
+const project = projects[2];
 ---
-<BaseLayout title="Active Directory Attack Lab | Arman Mishra" description="A custom Active Directory lab designed and compromised by Arman Mishra.">
-  <section class="page-hero container">
-    <div class="eyebrow">PROJECT / 003 · LAB ENGINEERING</div>
-    <h1>Active Directory Attack Lab<span class="hero-accent">Build the environment. Understand the attack paths.</span></h1>
-    <p class="lead">A custom, isolated Active Directory environment designed to explore credential exposure, authentication weaknesses, and domain-compromise paths.</p>
-  </section>
+<BaseLayout title="Active Directory Attack Lab | Arman Mishra Projects" description={project.description} work={{ type: "CreativeWork" }}>
+  <header class="page-hero container">
+    <p class="eyebrow">Project / Lab engineering</p>
+    <h1>Active Directory Attack Lab</h1>
+    <p class="lead">An isolated Windows domain for studying how endpoint configuration and authentication affect domain-wide exposure.</p>
+  </header>
   <section class="container section">
-    <div class="lab-topology">
-      <div class="topology-node dc-node">
-        <span>DOMAIN CONTROLLER</span>
-        <strong>RA01</strong>
-        <small>Active Directory Domain Services</small>
-      </div>
+    <figure class="lab-topology">
+      <div class="topology-node dc-node"><span>Domain controller</span><strong>Windows Server</strong><small>Active Directory Domain Services</small></div>
       <div class="topology-branches">
-        <div class="topology-node"><span>USER WORKSTATION</span><strong>Horus01</strong></div>
-        <div class="topology-node"><span>USER WORKSTATION</span><strong>Osiris01</strong></div>
+        <div class="topology-node"><span>Domain member</span><strong>Workstation A</strong></div>
+        <div class="topology-node"><span>Domain member</span><strong>Workstation B</strong></div>
       </div>
-      <div class="topology-users">4 DOMAIN USERS</div>
-    </div>
-    <div class="content-layout lab-details">
-      <aside class="side-note"><span>ENVIRONMENT</span><strong>1 domain controller · 2 user workstations · 4 users</strong></aside>
+      <p class="topology-users">Four domain users</p>
+      <figcaption>Logical topology of the isolated lab. The workstation labels are generic.</figcaption>
+    </figure>
+    <div class="content-layout">
+      <aside class="side-note"><span>Research question</span><strong>How far can an endpoint weakness reach when systems share an identity boundary?</strong></aside>
       <div class="prose">
         <h2>Environment</h2>
-        <p>The lab contains RA01 as the domain controller, Horus01 and Osiris01 as user workstations, and four domain users. The environment was built and compromised to test several independent techniques and paths.</p>
-        <h2>Techniques demonstrated</h2>
-        <ul>
-          <li>Credential recovery from Windows Credential Manager.</li>
-          <li>LNK abuse.</li>
-          <li>Kerberoasting.</li>
-          <li>LLMNR poisoning.</li>
-          <li>NTLM relay.</li>
-        </ul>
-        <h2>Learning outcomes</h2>
-        <p>The project explores how endpoint configuration, name resolution, authentication protocols, and credential handling can combine into domain-level attack paths. The public portfolio describes the lab at a high level; sensitive credentials and reusable attack artefacts are not published.</p>
+        <p>One domain controller serves two domain-joined workstations and four domain users. This made it possible to compare workstation behaviour, domain authentication, and identity relationships in a controlled setting.</p>
+        <h2>Security concepts</h2>
+        <p>The exercises covered Windows credential storage, shortcut handling, Kerberos service accounts, legacy name resolution, and NTLM authentication. Several paths reached domain-level impact in the lab.</p>
+        <h2>What I learned</h2>
+        <p>Assessing an authentication issue requires tracing the affected identity, the systems that trust it, and the permissions it carries. Controls such as signing, credential isolation, and tighter service account management address different parts of that chain.</p>
+        <div class="tag-list">{project.stack.map((tag) => <span class="tag">{tag}</span>)}</div>
       </div>
     </div>
   </section>
