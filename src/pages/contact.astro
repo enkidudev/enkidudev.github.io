@@ -10,9 +10,13 @@ import { profile } from "../data/profile";
   </section>
   <section class="container section">
     <div class="contact-grid">
-      <a class="contact-card contact-card-primary" href={`mailto:${profile.email}?subject=Hello%20Arman`}>
-        <span>01 / EMAIL</span><strong>{profile.email}</strong><small>Open your email application ↗</small>
-      </a>
+      <div class="contact-card contact-card-primary">
+        <span>01 / EMAIL</span>
+        <strong><a href={`mailto:${profile.email}?subject=Hello%20Arman`}>{profile.email}</a></strong>
+        <small>Send a message directly to my inbox.</small>
+        <button class="button button-secondary" type="button" data-copy-email={profile.email}>Copy email address</button>
+        <small class="small-note" data-copy-status aria-live="polite">Copy this address for later.</small>
+      </div>
       <a class="contact-card" href={profile.linkedin} target="_blank" rel="noopener noreferrer">
         <span>02 / LINKEDIN</span><strong>Connect professionally</strong><small>linkedin.com/in/arman-cybersec ↗</small>
       </a>
