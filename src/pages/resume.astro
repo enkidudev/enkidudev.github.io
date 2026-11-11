@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
+import { profile } from "../data/profile";
 const resumeUrl = "/resume/Arman_Mishra_Cybersecurity_Resume.pdf";
 ---
 <BaseLayout title="Resume | Arman Mishra" description="Download the cybersecurity resume of Arman Mishra.">
@@ -9,7 +10,7 @@ const resumeUrl = "/resume/Arman_Mishra_Cybersecurity_Resume.pdf";
     <p class="lead">A concise overview of certifications, technical skills, independent research, CTF contributions, and selected projects.</p>
     <div class="hero-actions">
       <a class="button button-primary" href={resumeUrl} download>Download resume <span>↓</span></a>
-      <a class="button button-secondary" href="mailto:arman.mishra.dev@gmail.com">Request a conversation <span>↗</span></a>
+      <a class="button button-secondary" href={`mailto:${profile.email}`}>Request a conversation <span>↗</span></a>
     </div>
   </section>
   <section class="container section">
