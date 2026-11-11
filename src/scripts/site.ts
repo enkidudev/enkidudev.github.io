@@ -13,6 +13,20 @@ function initializePage() {
     }
   }, { signal });
 
+  for (const button of document.querySelectorAll<HTMLButtonElement>("[data-copy-email]")) {
+    button.addEventListener("click", async () => {
+      const email = button.dataset.copyEmail;
+      const status = button.parentElement?.querySelector<HTMLElement>("[data-copy-status]");
+      if (!email || !status) return;
+      try {
+        await navigator.clipboard.writeText(email);
+        status.textContent = "Email address copied.";
+      } catch {
+        status.textContent = "Clipboard access failed. Select the address above to copy it.";
+      }
+    }, { signal });
+  }
+
   const search = document.querySelector<HTMLInputElement>("[data-writeup-search]");
   const category = document.querySelector<HTMLSelectElement>("[data-writeup-category]");
   const tag = document.querySelector<HTMLSelectElement>("[data-writeup-tag]");
