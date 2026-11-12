@@ -10,7 +10,7 @@ function initializeReveals() {
       cascade(selector, { ...gentle, interval });
     }
   };
-  const revealIfPresent = (selector: string, options = gentle) => {
+  const revealIfPresent = (selector: string, options: { from: "bottom" | "left" | "right" | "top"; duration: number; threshold: number } = gentle) => {
     const elements = document.querySelectorAll<HTMLElement>(selector);
     if (elements.length) reveal(elements, options);
   };
