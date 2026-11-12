@@ -4,7 +4,7 @@ export const profile = {
   title: "Penetration Tester & Security Researcher",
   tagline: "The wild man learnt to enumerate.",
   email: "contact@armanmishra.in",
-  linkedin: "https://www.linkedin.com/in/arman-cybersec/",
+  linkedin: "https://www.linkedin.com/in/armanmishra/",
   github: "https://github.com/enkidudev",
   education: "BCA, Specialization in Cyber Security",
   university: "Lovely Professional University",
@@ -72,6 +72,6 @@ export const skillGroups = [
 
 export const socialLinks = [
   { label: "GitHub", url: "https://github.com/enkidudev" },
-  { label: "LinkedIn", url: "https://www.linkedin.com/in/arman-cybersec/" },
+  { label: "LinkedIn", url: "https://www.linkedin.com/in/armanmishra/" },
   { label: "Email", url: `mailto:${profile.email}` },
 ];
