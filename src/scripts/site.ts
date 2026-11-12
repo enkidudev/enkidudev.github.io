@@ -12,7 +12,7 @@ function initializeReveals() {
   };
   const revealIfPresent = (selector: string, options: { from: "bottom" | "left" | "right" | "top"; duration: number; threshold: number } = gentle) => {
     const elements = document.querySelectorAll<HTMLElement>(selector);
-    if (elements.length) reveal(elements, options);
+    if (elements.length) reveal(selector, options);
   };
 
   // Do not target .hero-copy: it already has its own entrance CSS.
