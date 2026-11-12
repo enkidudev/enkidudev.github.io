@@ -62,7 +62,7 @@ export const skillGroups = [
   },
   {
     title: "Pivoting & personal tooling",
-    items: ["Ligolo-ng", "Shredder", "Ink"],
+    items: ["Ligolo-ng", "Shredder", "INK"],
   },
 ];
 

@@ -13,15 +13,15 @@ export const projects = [
   },
   {
     number: "02",
-    title: "Ink",
-    category: "Operator workflow",
-    status: "Private project",
+    title: "INK",
+    category: "Credential & evidence management",
+    status: "Open source",
     description:
-      "A lightweight SQLite-backed credential notebook for organizing discovered identities, credentials, authentication validation, and credential-reuse observations during assessments.",
-    stack: ["Python", "SQLite", "CLI"],
+      "A local-first, passphrase-encrypted credential notebook for penetration testing. Capture identities, preserve authentication evidence, track reuse observations, and export offline HTML reports.",
+    stack: ["Python", "SQLite", "Fernet", "CLI"],
     href: "/projects/ink/",
-    repository: "",
-    repositoryLabel: "",
+    repository: "https://github.com/enkidudev/INK",
+    repositoryLabel: "View GitHub repository",
   },
   {
     number: "03",
