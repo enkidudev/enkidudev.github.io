@@ -1,14 +1,66 @@
 export const competitions = [
-  { event: "ROOTBREACH CTF (NITJ)", place: 1, format: "Team", detail: "300+ teams" },
-  { event: "Encrypted (2025)", place: 1 },
-  { event: "CYBERWAR", place: 1 },
-  { event: "QuickHeal BCA", place: 1, format: "Solo" },
-  { event: "CYBERTHON", place: 1 },
-  { event: "Digital CyberHunt", place: 1 },
-  { event: "Tech Fusion", place: 2 },
-  { event: "EXPLOIT 404", place: 2 },
-  { event: "Trivarna", place: 3 },
-  { event: "RCS CTF 2026", place: 4, format: "Solo in a team-format event" },
+  {
+    event: "ROOTBREACH CTF 2026 (NITJ)",
+    place: 1,
+    format: "Team",
+    detail: "300+ teams",
+  },
+  {
+    event: "Encrypted CTF 2025",
+    place: 1,
+    format: "Team",
+    detail: "~90 teams",
+  },
+  {
+    event: "CYBERWAR CTF 2026",
+    place: 1,
+    format: "Team",
+    detail: "300+ teams",
+  },
+  {
+    event: "QuickHeal BCA CTF 2026",
+    place: 1,
+    format: "Team",
+    participation: "Solo",
+    detail: "~80 teams",
+  },
+  {
+    event: "CYBERTHON CTF 2026",
+    place: 1,
+    format: "Team",
+    detail: "~100 teams",
+  },
+  {
+    event: "Digital CyberHunt CTF 2026",
+    place: 1,
+    format: "Team",
+    detail: "~85 teams",
+  },
+  {
+    event: "Tech Fusion CTF 2026",
+    place: 2,
+    format: "Team",
+    detail: "~95 teams",
+  },
+  {
+    event: "EXPLOIT 404 CTF 2026",
+    place: 2,
+    format: "Team",
+    detail: "~90 teams",
+  },
+  {
+    event: "Trivarna CTF 2026",
+    place: 3,
+    format: "Team",
+    detail: "~80 teams",
+  },
+  {
+    event: "RCS CTF 2026",
+    place: 4,
+    format: "Team",
+    participation: "Solo",
+    detail: "~100 teams",
+  },
 ];
 
 export const wins = competitions.filter(({ place }) => place === 1).length;
