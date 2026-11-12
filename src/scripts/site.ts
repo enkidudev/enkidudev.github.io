@@ -1,9 +1,43 @@
+import { cascade, reveal } from "@awesome-reveal/core";
+
+// Each entrance plays once. Reinitialize for newly swapped Astro pages.
+function initializeReveals() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const gentle = { from: "bottom" as const, duration: 620, threshold: 0.12 };
+  const cascadeIfPresent = (selector: string, interval = 85) => {
+    if (document.querySelector(selector)) {
+      cascade(selector, { ...gentle, interval });
+    }
+  };
+  const revealIfPresent = (selector: string, options: { from: "bottom" | "left" | "right" | "top"; duration: number; threshold: number } = gentle) => {
+    const elements = document.querySelectorAll<HTMLElement>(selector);
+    if (elements.length) reveal(selector, options);
+  };
+
+  // Do not target .hero-copy: it already has its own entrance CSS.
+  revealIfPresent(".hero-art", { ...gentle, from: "right", duration: 720 });
+  cascadeIfPresent(".page-hero", 70);
+  revealIfPresent(".section-heading, .section-title", gentle);
+  cascadeIfPresent(".expertise-grid", 95);
+  cascadeIfPresent(".project-grid", 100);
+  cascadeIfPresent(".writeup-grid", 90);
+  cascadeIfPresent(".skill-groups", 90);
+  cascadeIfPresent(".cert-list", 95);
+  cascadeIfPresent(".contact-grid", 100);
+  cascadeIfPresent(".github-stats-grid", 90);
+  revealIfPresent(".timeline-item, .lab-topology, .project-flow, .side-note, .note-panel, .empty-state", gentle);
+  revealIfPresent(".split-section > *, .contact-banner > *", gentle);
+}
+
 let pageListeners: AbortController | undefined;
 
 function initializePage() {
   pageListeners?.abort();
   pageListeners = new AbortController();
   const { signal } = pageListeners;
+
+  initializeReveals();
 
   const navigation = document.querySelector<HTMLDetailsElement>("[data-mobile-nav]");
   navigation?.addEventListener("keydown", (event) => {

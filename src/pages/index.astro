@@ -1,11 +1,9 @@
 ---
-import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import BaseLayout from "../components/BaseLayout.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import FieldNote from "../components/FieldNote.astro";
-import heroArt from "../assets/forest-wanderer.webp";
 import { profile } from "../data/profile";
 import { wins, podiums } from "../data/achievements";
 import { projects } from "../data/projects";
@@ -37,9 +35,10 @@ const expertise = [
         <a href={`mailto:${profile.email}`}><Icon name="lucide:mail" /> Email</a>
       </div>
     </div>
-    <figure class="hero-art">
-      <Image src={heroArt} alt="An ink-drawn wanderer faces a stone passage in a misty evergreen forest" widths={[400, 650, 900, 1100]} sizes="(max-width: 760px) 92vw, (max-width: 1250px) 47vw, 570px" quality={72} loading="eager" fetchpriority="high" />
+    <figure class="hero-art hero-ascii">
+      <ascii-art piece="rainforest-falls-mist" size="5" speed="0.7" aria-label="Rainforest Falls Mist, animated ASCII landscape"></ascii-art>
     </figure>
+    <script is:inline type="module" src="https://www.ascii-magic.com/ascii/ascii.js"></script>
   </section>
 
   <section class="container section">
