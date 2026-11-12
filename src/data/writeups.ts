@@ -19,11 +19,11 @@ type MarkdownModule = {
 };
 
 const modules = import.meta.glob<MarkdownModule>(
-  "../content/writeups/**/*.{md,mdx}",
+  ["../content/writeups/**/*.{md,mdx}", "../content/case-studies/*.md"],
   { eager: true }
 );
 
-const sources = import.meta.glob<string>("../content/writeups/**/*.{md,mdx}", {
+const sources = import.meta.glob<string>(["../content/writeups/**/*.{md,mdx}", "../content/case-studies/*.md"], {
   query: "?raw", import: "default", eager: true,
 });
 
@@ -40,7 +40,7 @@ const parsed = Object.entries(modules).flatMap(([file, module]) => {
   }
 
   const relativePath = file
-    .replace("../content/writeups/", "")
+    .replace(/^\.\.\/content\/(?:writeups|case-studies)\//, "")
     .replace(/\.mdx?$/, "");
 
   const fallbackSlug = relativePath

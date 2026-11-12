@@ -6,7 +6,8 @@ import SectionHeading from "../components/SectionHeading.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import FieldNote from "../components/FieldNote.astro";
 import heroArt from "../assets/forest-wanderer.webp";
-import { profile, certifications } from "../data/profile";
+import { profile } from "../data/profile";
+import { wins, podiums } from "../data/achievements";
 import { projects } from "../data/projects";
 import { writeups } from "../data/writeups";
 
@@ -16,21 +17,23 @@ const expertise = [
   { title: "Active Directory", detail: "Windows environments, identity, and authentication." },
 ];
 ---
-<BaseLayout title="Arman Mishra | Enkidu, Penetration Tester" description="Arman Mishra, known as Enkidu. Penetration testing, security research, independent projects, and technical writeups.">
+<BaseLayout description="Arman Mishra, CPTS- and PJPT-certified penetration tester focused on web applications, internal networks, and Active Directory.">
   <section class="container hero">
     <div class="hero-copy">
-      <p class="eyebrow">Arman Mishra <span aria-hidden="true">/</span> Penetration Tester</p>
-      <h1>Hey, I’m <em>Enkidu.</em></h1>
+      <p class="eyebrow">Penetration Tester</p>
+      <h1>Arman <em>Mishra.</em></h1>
       <p class="hero-tagline">{profile.tagline}</p>
-      <p class="hero-description">I research how web applications, networks, and Active Directory environments fail, and build tools to make that work easier to verify.</p>
+      <p class="hero-description">I test web applications, internal networks, and Active Directory. I build tools to document the evidence and am working toward red team operations.</p>
+      <p class="hero-proof"><a href="/certifications/">CPTS · PJPT</a> <span aria-hidden="true">·</span> <a href="/achievements/">{wins} CTF wins · {podiums} podiums · Dante 100%</a></p>
+      <p class="hero-availability">{profile.availability}.</p>
       <div class="hero-actions">
         <a class="button button-primary" href="/projects/">Explore projects <Icon name="lucide:arrow-up-right" /></a>
         <a class="button button-secondary" href="/writeups/">Read writeups</a>
         <a class="text-link" href="/resume/">Résumé <Icon name="lucide:arrow-up-right" /></a>
       </div>
       <div class="hero-socials">
-        <a href={profile.github}><Icon name="lucide:github" /> GitHub</a>
-        <a href={profile.linkedin}><Icon name="lucide:linkedin" /> LinkedIn</a>
+        <a href={profile.github} rel="me"><Icon name="lucide:github" /> GitHub</a>
+        <a href={profile.linkedin} rel="me"><Icon name="lucide:linkedin" /> LinkedIn</a>
         <a href={`mailto:${profile.email}`}><Icon name="lucide:mail" /> Email</a>
       </div>
     </div>
@@ -38,15 +41,6 @@ const expertise = [
       <Image src={heroArt} alt="An ink-drawn wanderer faces a stone passage in a misty evergreen forest" widths={[400, 650, 900, 1100]} sizes="(max-width: 760px) 92vw, (max-width: 1250px) 47vw, 570px" quality={72} loading="eager" fetchpriority="high" />
     </figure>
   </section>
-
-  <div class="credential-strip">
-    <div class="container">
-      <span class="eyebrow">Certifications</span>
-      {certifications.map(({ short, issuer }) => (
-        <a href="/certifications/"><strong>{short}</strong><span>{issuer}</span><Icon name="lucide:arrow-up-right" /></a>
-      ))}
-    </div>
-  </div>
 
   <section class="container section">
     <SectionHeading eyebrow="Expertise" title="Where I work" />
@@ -98,15 +92,15 @@ const expertise = [
     <div>
       <div class="eyebrow">About</div>
       <h2>Arman Mishra</h2>
-      <p>I’m studying cybersecurity, building my own lab environments, and working toward a career in security research.</p>
+      <p>I’m studying cybersecurity at Lovely Professional University and building Windows lab environments to study identity and access.</p>
       <a class="text-link" href="/about/">More about me <Icon name="lucide:arrow-up-right" /></a>
     </div>
   </section>
 
   <section class="section section-soft">
     <div class="container contact-banner">
-      <div><div class="eyebrow">Contact</div><h2>Let’s talk security.</h2></div>
-      <a class="button button-primary" href="/contact/">Get in touch <Icon name="lucide:arrow-up-right" /></a>
+      <div><h2>Internships and collaborations</h2><p>{profile.availability}.</p></div>
+      <a class="button button-primary" href={`mailto:${profile.email}`}>Email me <Icon name="lucide:arrow-up-right" /></a>
     </div>
   </section>
 </BaseLayout>

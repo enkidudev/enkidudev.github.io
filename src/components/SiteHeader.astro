@@ -5,28 +5,26 @@ const primary = [
   { label: "Projects", href: "/projects/" },
   { label: "Writeups", href: "/writeups/" },
   { label: "About", href: "/about/" },
+  { label: "Credentials", href: "/credentials/" },
   { label: "Contact", href: "/contact/" },
 ];
-const secondary = [
-  { label: "Skills", href: "/skills/" },
-  { label: "Certifications", href: "/certifications/" },
-  { label: "Achievements", href: "/achievements/" },
-  { label: "GitHub", href: "/github/" },
-];
 const current = Astro.url.pathname;
-const active = (href: string) => current === href ? "page" : current.startsWith(href) ? "location" : undefined;
+const credentialPages = ["/certifications/", "/achievements/", "/skills/"];
+const active = (href: string) =>
+  current === href ? "page" :
+  current.startsWith(href) || (href === "/credentials/" && credentialPages.includes(current)) ? "location" : undefined;
 ---
 <header class="site-header">
   <div class="container header-inner">
-    <a class="wordmark" href="/" aria-label="Enkidu home">enkidu<span>.</span></a>
+    <a class="wordmark" href="/" aria-label="Arman Mishra home">arman<span>.</span></a>
     <nav class="nav-links" aria-label="Main navigation">
-      {[...primary, ...secondary].map(({ label, href }) => <a href={href} aria-current={active(href)}>{label}</a>)}
+      {primary.map(({ label, href }) => <a href={href} aria-current={active(href)}>{label}</a>)}
     </nav>
     <a class="button button-secondary header-resume" href="/resume/" aria-current={active("/resume/")}>Résumé <Icon name="lucide:arrow-up-right" /></a>
     <details class="mobile-nav" data-mobile-nav>
       <summary><Icon name="lucide:menu" /> Menu</summary>
       <nav aria-label="Mobile navigation">
-        {[...primary, ...secondary, { label: "Résumé", href: "/resume/" }].map(({ label, href }) => (
+        {[...primary, { label: "Résumé", href: "/resume/" }].map(({ label, href }) => (
           <a href={href} aria-current={active(href)}>{label}</a>
         ))}
       </nav>

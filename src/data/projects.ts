@@ -15,7 +15,7 @@ export const projects = [
     number: "02",
     title: "Ink",
     category: "Operator workflow",
-    status: "Personal tooling",
+    status: "Private project",
     description:
       "A lightweight SQLite-backed credential notebook for organizing discovered identities, credentials, authentication validation, and credential-reuse observations during assessments.",
     stack: ["Python", "SQLite", "CLI"],
@@ -29,7 +29,7 @@ export const projects = [
     category: "Lab engineering",
     status: "Built & tested",
     description:
-      "A custom three-machine Active Directory environment with four domain users and multiple demonstrated routes to domain compromise.",
+      "A custom three-machine Active Directory environment built by hand to study identity and endpoint configuration.",
     stack: ["Active Directory", "Windows", "Kerberos", "NTLM"],
     href: "/projects/active-directory-lab/",
     repository: "",

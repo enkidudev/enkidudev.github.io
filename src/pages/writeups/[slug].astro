@@ -16,7 +16,7 @@ const related = writeups.filter((entry) => entry.slug !== post.slug &&
   (entry.category === post.category || entry.tags.some((tag) => post.tags.includes(tag)))).slice(0, 3);
 const formatDate = new Intl.DateTimeFormat("en-IN", { dateStyle: "long", timeZone: "UTC" });
 ---
-<BaseLayout title={`${post.title} | Arman Mishra`} description={post.description} work={{ type: "Article", datePublished: post.date }}>
+<BaseLayout title={post.title} description={post.description} work={{ type: "Article", datePublished: post.date }}>
   <progress class="reading-progress" data-reading-progress max="1" value="0" aria-label="Article reading progress"></progress>
   <header class="container article-header">
     <a class="text-link" href="/writeups/">← All writeups</a>

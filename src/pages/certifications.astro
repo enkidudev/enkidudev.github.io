@@ -2,7 +2,7 @@
 import BaseLayout from "../components/BaseLayout.astro";
 import { certifications } from "../data/profile";
 ---
-<BaseLayout title="Certifications | Arman Mishra" description="Verified cybersecurity certifications held by Arman Mishra.">
+<BaseLayout title="Certifications" description="Verified cybersecurity certifications held by Arman Mishra.">
   <section class="page-hero container">
     <div class="eyebrow">CREDENTIALS / VERIFIED LEARNING</div>
     <h1>Certifications<span class="hero-accent">Knowledge put to the test.</span></h1>
@@ -10,11 +10,10 @@ import { certifications } from "../data/profile";
   </section>
   <section class="container section">
     <div class="cert-list">
-      {certifications.map((cert, index) => (
+      {certifications.map((cert) => (
         <article class="cert-detail-card">
-          <div class="cert-index">0{index + 1}</div>
           <div class="cert-body">
-            <span class="eyebrow">{cert.issuer}</span>
+            <span class="eyebrow">{cert.issuer} · Issued {cert.issued}</span>
             <h2>{cert.name}</h2>
             <p>{cert.description}</p>
             <a class="button button-secondary" href={cert.url} target="_blank" rel="noopener noreferrer">Verify credential <span>↗</span></a>

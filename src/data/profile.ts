@@ -1,7 +1,8 @@
 export const profile = {
   name: "Arman Mishra",
   alias: "Enkidu",
-  title: "Penetration Tester & Security Researcher",
+  title: "Penetration Tester",
+  availability: "Open to penetration testing and red team internships",
   tagline: "The wild man learnt to enumerate.",
   email: "contact@armanmishra.in",
   linkedin: "https://www.linkedin.com/in/armanmishra/",
@@ -13,18 +14,12 @@ export const profile = {
     "I work across web application, network, Windows, Linux, and Active Directory security. My approach is grounded in careful enumeration, evidence-led validation, and practical security research. Alongside hands-on testing, I build security tools, labs, and CTF challenges.",
 };
 
-export const metrics = [
-  { value: "09", label: "CTF victories", detail: "Reported achievement count" },
-  { value: "05", label: "National CTFs", detail: "National competitions" },
-  { value: "02", label: "Paid bounty awards", detail: "Independent disclosures" },
-  { value: "5–6", label: "Reported findings", detail: "Approximate total" },
-];
-
 export const certifications = [
   {
     name: "HTB Certified Penetration Testing Specialist",
     short: "CPTS",
     issuer: "Hack The Box",
+    issued: "November 2026",
     description:
       "Practical penetration-testing certification covering end-to-end assessment methodology across network, web, Windows, Linux, and Active Directory environments.",
     url: "https://www.credly.com/badges/42d1f8ac-4481-4d7f-9eb0-e23ea241822c/public_url",
@@ -33,6 +28,7 @@ export const certifications = [
     name: "Practical Junior Penetration Tester",
     short: "PJPT",
     issuer: "TCM Security",
+    issued: "2026",
     description:
       "Practical penetration-testing certification focused on foundational internal network and Active Directory assessment skills.",
     url: "https://certified.tcm-sec.com/46c7b3fe-52e3-43b5-a6c5-ea89bf292ccb?key=fcabe8ae0bf92ca6dbe77dd2a6c43e98461ed0745e698c32e0cc78facbf94e60#acc.JEde5BY2",
@@ -71,7 +67,7 @@ export const skillGroups = [
 ];
 
 export const socialLinks = [
-  { label: "GitHub", url: "https://github.com/enkidudev" },
-  { label: "LinkedIn", url: "https://www.linkedin.com/in/armanmishra/" },
+  { label: "GitHub", url: profile.github },
+  { label: "LinkedIn", url: profile.linkedin },
   { label: "Email", url: `mailto:${profile.email}` },
 ];

@@ -266,3 +266,13 @@ summary::-webkit-details-marker { display: none; }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
   .project-card:hover, .project-card:focus-within, .writeup-card:hover, .writeup-card:focus-within { transform: none; }
 }
+
+.hero-proof { color: var(--ink); font-weight: 600; margin: 1.25rem 0 .5rem; }
+.hero-proof a { text-decoration: underline; text-underline-offset: .2em; }
+.hero-availability { color: var(--muted); margin: .5rem 0 1.25rem; }
+.table-scroll { max-width: 100%; overflow-x: auto; }
+.results-table { width: 100%; border-collapse: collapse; text-align: left; }
+.results-table caption { text-align: left; color: var(--muted); padding-block: .5rem; }
+.results-table :is(th, td) { border-bottom: 1px solid var(--line); padding: .6rem .75rem; }
+.results-table th:first-child { padding-left: 0; }
+.cert-detail-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1rem; }

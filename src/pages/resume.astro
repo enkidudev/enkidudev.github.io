@@ -1,22 +1,54 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
-import { profile } from "../data/profile";
+import { certifications, profile } from "../data/profile";
+import { bountySummary, labs, podiums, wins } from "../data/achievements";
 const resumeUrl = "/resume/Arman_Mishra_Cybersecurity_Resume.pdf";
 ---
-<BaseLayout title="Resume | Arman Mishra" description="Download the cybersecurity resume of Arman Mishra.">
-  <section class="page-hero container">
-    <div class="eyebrow">RESUME / PROFESSIONAL PROFILE</div>
-    <h1>Arman Mishra<span class="hero-accent">Penetration Tester · Security Researcher</span></h1>
-    <p class="lead">A concise overview of certifications, technical skills, independent research, CTF contributions, and selected projects.</p>
+<BaseLayout title="Résumé" description="Arman Mishra’s penetration testing résumé, certifications, research, projects, and education.">
+  <header class="page-hero container">
+    <h1>Arman Mishra<span class="hero-accent">Penetration Tester</span></h1>
+    <p class="lead">Web, internal network, and Active Directory security. {profile.availability}.</p>
     <div class="hero-actions">
-      <a class="button button-primary" href={resumeUrl} download>Download resume <span>↓</span></a>
-      <a class="button button-secondary" href={`mailto:${profile.email}`}>Request a conversation <span>↗</span></a>
+      <a class="button button-primary" href={resumeUrl} download="Arman_Mishra_Resume_Pentester_2026.pdf">Download résumé (PDF) ↓</a>
+      <a class="button button-secondary" href={`mailto:${profile.email}`}>{profile.email} ↗</a>
     </div>
-  </section>
-  <section class="container section">
-    <div class="resume-frame">
-      <iframe src={resumeUrl} title="Arman Mishra cybersecurity resume"></iframe>
-    </div>
-    <p class="small-note">If the preview is unavailable in your browser, use the Download resume link above.</p>
+  </header>
+  <section class="container section timeline">
+    <article class="timeline-item">
+      <h2>Certifications</h2>
+      <ul>{certifications.map(({ name, short, issued, url }) => <li><a class="text-link" href={url}>{name} ({short})</a> · {issued}</li>)}</ul>
+    </article>
+    <article class="timeline-item">
+      <h2>Security research and bug bounty</h2>
+      <p>{bountySummary}</p>
+      <p>Submitted five or more vulnerability reports, including responsible disclosures to organizations without formal programs.</p>
+    </article>
+    <article class="timeline-item">
+      <h2>Lab assessments</h2>
+      <ul>{labs.map(({ name, progress }) => <li>{name} · {progress}</li>)}</ul>
+    </article>
+    <article class="timeline-item">
+      <h2>Projects</h2>
+      <ul>
+        <li><a class="text-link" href="/projects/shredder/">Shredder</a> · Python CLI for service discovery and evidence-led triage.</li>
+        <li><a class="text-link" href="/projects/active-directory-lab/">Active Directory lab</a> · A hand-built domain controller and two Windows workstations.</li>
+        <li><a class="text-link" href="/projects/ink/">Ink</a> · Private SQLite-backed assessment notebook with HTML export.</li>
+        <li>Offline Security Field Manual · A private, searchable collection of playbooks, case studies, and reporting references.</li>
+      </ul>
+    </article>
+    <article class="timeline-item">
+      <h2>CTF competitions and challenge development</h2>
+      <p>{wins} wins and {podiums} podium finishes, including first at ROOTBREACH CTF (NITJ) in a field of 300+ teams.</p>
+      <p>As a ScriptJackers member, designed seven HackVerse challenges in October 2026, including four forensics challenges and three boxes.</p>
+      <a class="text-link" href="/achievements/">View full competition results ↗</a>
+    </article>
+    <article class="timeline-item">
+      <h2>Technical skills</h2>
+      <p>Nmap, RustScan, Masscan, ffuf, Nuclei, Burp Suite, SQLmap, NetExec, Impacket, BloodHound, Certipy, Responder, Metasploit, Ligolo-ng, Python, Bash, C, C++, and SQLite.</p>
+    </article>
+    <article class="timeline-item">
+      <h2>Education</h2>
+      <p>{profile.university} · {profile.education} · CGPA 9.02 · {profile.graduation}</p>
+    </article>
   </section>
 </BaseLayout>

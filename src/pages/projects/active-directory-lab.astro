@@ -4,27 +4,27 @@ import { projects } from "../../data/projects";
 
 const project = projects[2];
 ---
-<BaseLayout title="Active Directory Attack Lab | Arman Mishra Projects" description={project.description} work={{ type: "CreativeWork" }}>
+<BaseLayout title="Active Directory Attack Lab" description={project.description} work={{ type: "CreativeWork" }}>
   <header class="page-hero container">
     <p class="eyebrow">Project / Lab engineering</p>
     <h1>Active Directory Attack Lab</h1>
+    <a class="text-link" href="/projects/">← All projects</a>
     <p class="lead">An isolated Windows domain for studying how endpoint configuration and authentication affect domain-wide exposure.</p>
   </header>
   <section class="container section">
     <figure class="lab-topology">
-      <div class="topology-node dc-node"><span>Domain controller</span><strong>Windows Server</strong><small>Active Directory Domain Services</small></div>
+      <div class="topology-node dc-node"><span>Domain controller</span><strong>Windows Server 2019</strong><small>Active Directory Domain Services</small></div>
       <div class="topology-branches">
-        <div class="topology-node"><span>Domain member</span><strong>Workstation A</strong></div>
-        <div class="topology-node"><span>Domain member</span><strong>Workstation B</strong></div>
+        <div class="topology-node"><span>Domain member</span><strong>Windows 10 · Workstation A</strong></div>
+        <div class="topology-node"><span>Domain member</span><strong>Windows 10 · Workstation B</strong></div>
       </div>
-      <p class="topology-users">Four domain users</p>
       <figcaption>Logical topology of the isolated lab. The workstation labels are generic.</figcaption>
     </figure>
     <div class="content-layout">
       <aside class="side-note"><span>Research question</span><strong>How far can an endpoint weakness reach when systems share an identity boundary?</strong></aside>
       <div class="prose">
         <h2>Environment</h2>
-        <p>One domain controller serves two domain-joined workstations and four domain users. This made it possible to compare workstation behaviour, domain authentication, and identity relationships in a controlled setting.</p>
+        <p>I configured a Windows Server 2019 domain controller and joined two Windows 10 workstations by hand. This gave me a controlled environment for comparing workstation behavior, domain authentication, and identity permissions.</p>
         <h2>Security concepts</h2>
         <p>The exercises covered Windows credential storage, shortcut handling, Kerberos service accounts, legacy name resolution, and NTLM authentication. Several paths reached domain-level impact in the lab.</p>
         <h2>What I learned</h2>

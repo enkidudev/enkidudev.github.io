@@ -17,13 +17,15 @@ interface Props {
 }
 
 const {
-  title = "Arman Mishra | Enkidu",
+  title,
   description = "Arman Mishra, penetration tester and security researcher.",
   noindex = false,
   work,
 } = Astro.props;
+const pageTitle = title ? `${title} · ${profile.name}` : `${profile.name} · ${profile.title}`;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const socialImage = new URL("/social-cover.jpg", Astro.site).href;
+const socialCard = work ? Astro.url.pathname.split("/").filter(Boolean).join("-") : "";
+const socialImage = new URL(socialCard ? `/social/${socialCard}.jpg` : "/social-cover.jpg", Astro.site).href;
 const siteUrl = Astro.site!.href;
 const person = {
   "@type": "Person",
@@ -40,7 +42,7 @@ const person = {
 };
 const graph = [
   person,
-  { "@type": "WebSite", "@id": siteUrl + "#website", name: "Arman Mishra | Enkidu", url: siteUrl, publisher: { "@id": person["@id"] } },
+  { "@type": "WebSite", "@id": siteUrl + "#website", name: profile.name, url: siteUrl, publisher: { "@id": person["@id"] } },
   ...(work ? [{
     "@type": work.type, name: title, headline: title, description, url: canonical,
     datePublished: work.datePublished, author: { "@id": person["@id"] },
@@ -58,15 +60,19 @@ const structuredData = JSON.stringify({ "@context": "https://schema.org", "@grap
     {noindex && <meta name="robots" content="noindex" />}
     {!noindex && <link rel="canonical" href={canonical} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title="Arman Mishra writeups" href="/rss.xml" />
+    <meta property="og:site_name" content={profile.name} />
+    <meta property="og:locale" content="en_IN" />
+    {work?.type === "Article" && work.datePublished && <meta property="article:published_time" content={work.datePublished} />}
     <meta property="og:type" content={work?.type === "Article" ? "article" : "website"} />
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={socialImage} />
-    <meta property="og:image:alt" content="An ink illustration of a wanderer facing a misty forest" />
+    <meta property="og:image:alt" content={socialCard ? pageTitle : "An ink illustration of a wanderer facing a misty forest"} />
     <meta name="twitter:card" content="summary_large_image" />
     <script type="application/ld+json" set:html={structuredData} />
-    <title>{title}</title>
+    <title>{pageTitle}</title>
     <ClientRouter fallback="none" />
   </head>
   <body>

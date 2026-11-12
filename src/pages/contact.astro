@@ -2,26 +2,25 @@
 import BaseLayout from "../components/BaseLayout.astro";
 import { profile } from "../data/profile";
 ---
-<BaseLayout title="Contact | Arman Mishra" description="Contact Arman Mishra about security research, penetration testing, CTF development, and opportunities.">
+<BaseLayout title="Contact" description="Contact Arman Mishra about security research, penetration testing, CTF development, and opportunities.">
   <section class="page-hero container">
-    <div class="eyebrow">CONTACT / START A CONVERSATION</div>
-    <h1>Let's talk security<span class="hero-accent">Have a project worth investigating?</span></h1>
-    <p class="lead">For penetration-testing opportunities, security research, CTF development, or collaboration, get in touch.</p>
+    <h1>Contact</h1>
+    <p class="lead">{profile.availability}. Email me about roles, security research, CTF collaboration, or responsible disclosure.</p>
   </section>
   <section class="container section">
     <div class="contact-grid">
       <div class="contact-card contact-card-primary">
-        <span>01 / EMAIL</span>
+        <span>EMAIL</span>
         <strong><a href={`mailto:${profile.email}?subject=Hello%20Arman`}>{profile.email}</a></strong>
         <small>Send a message directly to my inbox.</small>
         <button class="button button-secondary" type="button" data-copy-email={profile.email}>Copy email address</button>
         <small class="small-note" data-copy-status aria-live="polite">Copy this address for later.</small>
       </div>
       <a class="contact-card" href={profile.linkedin} target="_blank" rel="noopener noreferrer">
-        <span>02 / LINKEDIN</span><strong>Connect professionally</strong><small>linkedin.com/in/armanmishra ↗</small>
+        <span>LINKEDIN</span><strong>Connect professionally</strong><small>{new URL(profile.linkedin).hostname.replace(/^www\./, "") + new URL(profile.linkedin).pathname.replace(/\/$/, "")} ↗</small>
       </a>
       <a class="contact-card" href={profile.github} target="_blank" rel="noopener noreferrer">
-        <span>03 / GITHUB</span><strong>Explore my code</strong><small>github.com/enkidudev ↗</small>
+        <span>GITHUB</span><strong>Explore my code</strong><small>github.com/enkidudev ↗</small>
       </a>
     </div>
   </section>

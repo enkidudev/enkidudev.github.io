@@ -1,8 +1,16 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
 import { skillGroups } from "../data/profile";
+const evidence = [
+  { href: "/projects/shredder/", label: "Shredder’s Python implementation" },
+  { href: "/projects/shredder/", label: "Shredder’s discovery workflow" },
+  { href: "/writeups/", label: "Security writeups" },
+  { href: "/projects/active-directory-lab/", label: "Active Directory lab" },
+  { href: "/achievements/", label: "Practical lab assessments" },
+  { href: "/projects/ink/", label: "Ink project" },
+];
 ---
-<BaseLayout title="Technical Skills | Arman Mishra" description="Technical tools and skills used by Arman Mishra across penetration testing, Active Directory, web security, and research.">
+<BaseLayout title="Technical Skills" description="Technical tools and skills used by Arman Mishra across penetration testing, Active Directory, web security, and research.">
   <section class="page-hero container">
     <div class="eyebrow">TOOLKIT / TECHNICAL SKILLS</div>
     <h1>Technical toolkit.</h1>
@@ -10,17 +18,17 @@ import { skillGroups } from "../data/profile";
   </section>
   <section class="container section">
     <div class="skill-groups">
-      {skillGroups.map((group) => (
+      {skillGroups.map((group, index) => (
         <article class="skill-group">
           <div>
             <h2>{group.title}</h2>
             <div class="tag-list tag-list-light">
               {group.items.map((item) => <span class="tag">{item}</span>)}
             </div>
+            <a class="text-link section-end-link" href={evidence[index].href}>{evidence[index].label} ↗</a>
           </div>
         </article>
       ))}
     </div>
-    <p class="small-note">This list reflects tools used across practical labs and assessments. It is not a claim that every tool has the same depth of proficiency.</p>
   </section>
 </BaseLayout>

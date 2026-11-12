@@ -7,11 +7,12 @@ const categories = [...new Set(writeups.map((post) => post.category))].sort();
 const tags = [...new Set(writeups.flatMap((post) => post.tags))].sort();
 const dates = new Intl.DateTimeFormat("en-IN", { dateStyle: "medium", timeZone: "UTC" });
 ---
-<BaseLayout title="Writeups & Research | Arman Mishra" description="Technical writeups and security research by Arman Mishra.">
+<BaseLayout title="Writeups & Research" description="Technical writeups and security research by Arman Mishra.">
   <header class="page-hero container">
     <p class="eyebrow">Research</p>
     <h1>Field notes.</h1>
     <p class="lead">Technical writeups on penetration testing, Active Directory, web security, and independent research.</p>
+    <a class="text-link" href="/rss.xml">Subscribe via RSS</a>
   </header>
   <section class="container section" aria-label="Published writeups">
     {writeupCount > 0 ? (
