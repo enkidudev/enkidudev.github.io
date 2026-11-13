@@ -22,7 +22,7 @@ const active = (href: string) =>
     </nav>
     <a class="button button-secondary header-resume" href="/resume/" aria-current={active("/resume/")}>Résumé <Icon name="lucide:arrow-up-right" /></a>
     <details class="mobile-nav" data-mobile-nav>
-      <summary><Icon name="lucide:menu" /> Menu</summary>
+      <summary class="button button-secondary"><Icon name="lucide:menu" /> Menu</summary>
       <nav aria-label="Mobile navigation">
         {[...primary, { label: "Résumé", href: "/resume/" }].map(({ label, href }) => (
           <a href={href} aria-current={active(href)}>{label}</a>

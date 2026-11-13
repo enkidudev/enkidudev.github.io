@@ -18,6 +18,6 @@ export default defineConfig({
     }),
     mdx(),
     sitemap({ filter: (url) => !new URL(url).pathname.startsWith("/404") }),
-    icon({ include: { lucide: ["arrow-up-right", "menu", "x", "github", "mail", "linkedin", "copy", "arrow-down", "terminal"] } }),
+    icon({ include: { lucide: ["arrow-up-right", "menu", "x", "github", "mail", "linkedin", "copy", "arrow-down", "terminal", "book-open", "headphones", "tv", "gamepad-2", "mountain"] } }),
   ],
 });

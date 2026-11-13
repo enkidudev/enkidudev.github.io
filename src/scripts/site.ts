@@ -86,7 +86,7 @@ function initializePage() {
   tag?.addEventListener("change", filterWriteups, { signal });
   if (search) filterWriteups();
 
-  for (const image of document.querySelectorAll<HTMLImageElement>("[data-external-stat]")) {
+  for (const image of document.querySelectorAll<HTMLImageElement>("[data-external-image]")) {
     function showFallback() {
       image.hidden = true;
       const fallback = image.nextElementSibling as HTMLElement | null;

@@ -1,26 +1,130 @@
 ---
-import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
 import BaseLayout from "../components/BaseLayout.astro";
-import notebook from "../assets/ink-notebook.webp";
+import { profile } from "../data/profile";
+
+const interests = [
+  { icon: "book-open", title: "Poetry & literature", detail: "I love reading both poetry and prose." },
+  { icon: "headphones", title: "Music", detail: "Neo-soul, metal, and drinking songs." },
+  { icon: "tv", title: "Anime", detail: "JoJo’s Bizarre Adventure is my favorite." },
+  { icon: "gamepad-2", title: "Games", detail: "Disco Elysium, Armored Core VI, Clair Obscur: Expedition 33, and The Witcher 3." },
+  { icon: "mountain", title: "Hiking", detail: "I like getting outdoors and spending time on the trail." },
+];
 ---
-<BaseLayout title="About" description="Arman Mishra’s background in penetration testing, security research, tool development, and CTFs.">
-  <header class="page-hero container">
-    <p class="eyebrow">About</p>
-    <h1>Arman Mishra <span class="hero-accent">Known online as Enkidu.</span></h1>
-    <p class="lead">Penetration tester, security researcher, and cybersecurity student at Lovely Professional University, based in India (IST).</p>
-  </header>
-  <section class="container content-layout section">
-    <figure class="about-art">
-      <Image src={notebook} alt="An ink pen resting on an open notebook beside a rain-streaked window" widths={[380, 680, 950]} sizes="(max-width: 760px) 92vw, 420px" quality={72} loading="lazy" />
-    </figure>
-    <div class="prose">
-      <h2>What I work on</h2>
-      <p>I hold the <a href="/certifications/">CPTS and PJPT certifications</a> and am pursuing a Bachelor of Computer Applications with a specialization in Cyber Security. My hands-on work spans web applications, networks, Windows, Linux, and Active Directory.</p>
-      <p>In CTFs, I’ve worked on both sides of the challenge. I’ve competed nationally and helped build forensic challenges and boot-to-root machines for HackVerse. I’ve also independently researched and disclosed vulnerabilities.</p>
-      <h2>What I build</h2>
-      <p>I wrote <a href="/projects/shredder/">Shredder</a> to organize the evidence produced during service enumeration. <a href="/projects/ink/">INK</a> grew out of a different problem: keeping identities and authentication observations together across an assessment. I built an <a href="/projects/active-directory-lab/">Active Directory lab</a> to study how Windows configuration and identity affect the reach of a security issue.</p>
-      <h2>Where I’m headed</h2>
-      <p>I want to deepen my work in red-team operations and security research, especially around authentication and the trust relationships between services.</p>
+<BaseLayout title="About" description="Get to know Arman Mishra, a penetration tester and cybersecurity student, and what he enjoys away from the keyboard.">
+  <header class="about-hero">
+    <div class="container about-intro">
+      <a class="about-avatar" href={profile.github} aria-label="Arman Mishra on GitHub">
+        <img src={profile.github + ".png?size=320"} width="320" height="320" alt="" data-external-image />
+        <span aria-hidden="true" hidden>AM</span>
+      </a>
+      <h1>Arman Mishra</h1>
+      <p class="about-alias">Known online as {profile.alias}</p>
+      <p class="lead">I’m a penetration tester and security researcher studying BCA with a specialization in cybersecurity at {profile.university}.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="/projects/">Explore my work <Icon name="lucide:arrow-up-right" /></a>
+        <a class="button button-secondary" href="/contact/">Get in touch</a>
+      </div>
     </div>
-  </section>
+  </header>
+
+  <div class="container about-body">
+    <section class="about-section" aria-labelledby="about-work">
+      <h2 id="about-work">What I work on</h2>
+      <div class="prose">
+        <p>I’m working toward becoming a red team operator. Right now, I spend most of my time testing web applications and APIs, studying internal networks and Active Directory, and building labs to understand how systems behave.</p>
+        <p>I hold the <a href="/certifications/">CPTS and PJPT certifications</a>. Outside my degree, I compete in CTFs, have built forensic and boot-to-root challenges for HackVerse, and have independently researched and disclosed vulnerabilities.</p>
+        <p>I also build tools for problems I run into while testing. <a href="/projects/shredder/">Shredder</a> helps me organize enumeration results, and <a href="/projects/ink/">INK</a> gives me one place to keep track of accounts and authentication notes during an assessment.</p>
+      </div>
+    </section>
+
+    <section class="about-section" aria-labelledby="about-interests">
+      <h2 id="about-interests">Away from the keyboard</h2>
+      <ul class="about-interests">
+        {interests.map(({ icon, title, detail }) => (
+          <li>
+            <Icon name={`lucide:${icon}`} aria-hidden="true" />
+            <div>
+              <h3>{title}</h3>
+              <p>{detail}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </div>
 </BaseLayout>
+
+<style>
+  .about-hero {
+    background: radial-gradient(ellipse at 50% 0%, #233e2e, var(--bg) 72%);
+    border-bottom: 1px solid var(--line);
+    text-align: center;
+  }
+
+  .about-intro { padding-block: clamp(36px, 6vw, 78px); }
+
+  .about-avatar {
+    display: grid;
+    place-items: center;
+    width: clamp(106px, 15vw, 152px);
+    aspect-ratio: 1;
+    margin: 0 auto 22px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    background: var(--panel);
+    box-shadow: 0 0 0 5px var(--bg), 0 0 0 6px var(--line);
+    overflow: hidden;
+  }
+
+  .about-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .about-avatar span { color: var(--accent); font: 2.5rem var(--serif); }
+  h1 { font-size: clamp(3.4rem, 9vw, 7rem); line-height: .94; letter-spacing: -.04em; }
+  .about-alias { margin-top: 10px; color: var(--gold); font: .82rem/1.5 var(--mono); }
+  .lead { margin-inline: auto; max-width: 54ch; }
+  .hero-actions { justify-content: center; }
+
+  .about-body { max-width: 1020px; }
+
+  .about-section {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    align-items: start;
+    gap: clamp(18px, 5vw, 64px);
+    padding-block: clamp(30px, 5vw, 62px);
+  }
+
+  .about-section + .about-section { border-top: 1px solid var(--line); }
+  .about-section h2 { font-size: clamp(2.3rem, 4vw, 3.6rem); }
+
+  .about-interests {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .about-interests li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--surface);
+  }
+
+  .about-interests svg { margin-top: 4px; color: var(--gold); }
+  .about-interests h3 { font-size: 1.55rem; }
+  .about-interests p { margin-top: 4px; color: var(--muted); font-size: .9rem; }
+
+  @media (max-width: 760px) {
+    .about-section { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  @media (max-width: 520px) {
+    .about-interests { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>
