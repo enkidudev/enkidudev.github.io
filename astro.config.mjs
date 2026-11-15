@@ -9,6 +9,7 @@ import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 export default defineConfig({
   site: "https://www.armanmishra.in",
   trailingSlash: "always",
+  prefetch: { prefetchAll: false },
   integrations: [
     expressiveCode({
       themes: ["github-dark"],

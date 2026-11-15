@@ -11,6 +11,8 @@ import SiteFooter from "./SiteFooter.astro";
 
 interface Props {
   title?: string;
+  fullTitle?: boolean;
+  profileImage?: string;
   description?: string;
   noindex?: boolean;
   work?: { type: "Article" | "CreativeWork"; datePublished?: string };
@@ -18,11 +20,15 @@ interface Props {
 
 const {
   title,
+  fullTitle = false,
+  profileImage,
   description = "Arman Mishra, penetration tester and security researcher.",
   noindex = false,
   work,
 } = Astro.props;
-const pageTitle = title ? `${title} · ${profile.name}` : `${profile.name} · ${profile.title}`;
+const pageTitle = title
+  ? (fullTitle ? title : `${title} | ${profile.name}`)
+  : `${profile.name} | ${profile.title} & Cybersecurity Researcher`;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const socialCard = work ? Astro.url.pathname.split("/").filter(Boolean).join("-") : "";
 const socialImage = new URL(socialCard ? `/social/${socialCard}.jpg` : "/social-cover.jpg", Astro.site).href;
@@ -33,6 +39,9 @@ const person = {
   name: profile.name,
   alternateName: profile.alias,
   jobTitle: profile.title,
+  description: profile.summary,
+  mainEntityOfPage: new URL("/about/", Astro.site).href,
+  ...(profileImage ? { image: profileImage } : {}),
   email: profile.email,
   url: siteUrl,
   sameAs: [profile.github, profile.linkedin],
@@ -43,6 +52,14 @@ const person = {
 const graph = [
   person,
   { "@type": "WebSite", "@id": siteUrl + "#website", name: profile.name, url: siteUrl, publisher: { "@id": person["@id"] } },
+  ...(profileImage ? [{
+    "@type": "ProfilePage",
+    "@id": canonical + "#profile",
+    url: canonical,
+    name: pageTitle,
+    description,
+    mainEntity: { "@id": person["@id"] },
+  }] : []),
   ...(work ? [{
     "@type": work.type, name: title, headline: title, description, url: canonical,
     datePublished: work.datePublished, author: { "@id": person["@id"] },
@@ -55,7 +72,7 @@ const structuredData = JSON.stringify({ "@context": "https://schema.org", "@grap
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#111613" />
+    <meta name="theme-color" content="#132326" />
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex" />}
     {!noindex && <link rel="canonical" href={canonical} />}
@@ -71,7 +88,10 @@ const structuredData = JSON.stringify({ "@context": "https://schema.org", "@grap
     <meta property="og:image" content={socialImage} />
     <meta property="og:image:alt" content={socialCard ? pageTitle : "An ink illustration of a wanderer facing a misty forest"} />
     <meta name="twitter:card" content="summary_large_image" />
-    <script type="application/ld+json" set:html={structuredData} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    {!noindex && <script type="application/ld+json" set:html={structuredData} />}
     <title>{pageTitle}</title>
     <ClientRouter fallback="none" />
   </head>

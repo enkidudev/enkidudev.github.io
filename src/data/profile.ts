@@ -7,11 +7,11 @@ export const profile = {
   email: "contact@armanmishra.in",
   linkedin: "https://www.linkedin.com/in/armanmishra/",
   github: "https://github.com/enkidudev",
-  education: "BCA, Specialization in Cyber Security",
+  education: "BCA, specialization in cybersecurity",
   university: "Lovely Professional University",
   graduation: "Expected 2028",
   summary:
-    "I work across web application, network, Windows, Linux, and Active Directory security. My approach is grounded in careful enumeration, evidence-led validation, and practical security research. Alongside hands-on testing, I build security tools, labs, and CTF challenges.",
+    "Arman Mishra is a CPTS- and PJPT-certified penetration tester and cybersecurity researcher who tests web apps, APIs, internal networks, and Active Directory. He builds security tools, Windows labs, and CTF challenges.",
 };
 
 export const certifications = [

@@ -10,6 +10,7 @@ const resumeUrl = "/resume/Arman_Mishra_Cybersecurity_Resume.pdf";
     <p class="lead">Web, internal network, and Active Directory security. {profile.availability}.</p>
     <div class="hero-actions">
       <a class="button button-primary" href={resumeUrl} download="Arman_Mishra_Resume_Pentester_2026.pdf">Download résumé (PDF) ↓</a>
+      <a class="button button-secondary" href={resumeUrl} data-astro-reload>Open PDF ↗</a>
       <a class="button button-secondary" href={`mailto:${profile.email}`}>{profile.email} ↗</a>
     </div>
   </header>
@@ -32,7 +33,7 @@ const resumeUrl = "/resume/Arman_Mishra_Cybersecurity_Resume.pdf";
       <ul>
         <li><a class="text-link" href="/projects/shredder/">Shredder</a> · Python CLI for service discovery and evidence-led triage.</li>
         <li><a class="text-link" href="/projects/active-directory-lab/">Active Directory lab</a> · A hand-built domain controller and two Windows workstations.</li>
-        <li><a class="text-link" href="/projects/ink/">Ink</a> · Private SQLite-backed assessment notebook with HTML export.</li>
+        <li><a class="text-link" href="/projects/ink/">INK</a> · Open-source, encrypted assessment notebook with offline HTML export.</li>
         <li>Offline Security Field Manual · A private, searchable collection of playbooks, case studies, and reporting references.</li>
       </ul>
     </article>

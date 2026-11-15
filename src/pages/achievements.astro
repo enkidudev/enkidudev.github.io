@@ -16,8 +16,8 @@ const placements = ["", "1st", "2nd", "3rd", "4th"];
         <table class="results-table">
           <caption>Competition results, 2025–2026</caption>
           <thead><tr><th scope="col">Event</th><th scope="col">Place</th><th scope="col">Format</th><th scope="col">Details</th></tr></thead>
-          <tbody>{competitions.map(({ event, place, format, detail }) => (
-            <tr><th scope="row">{event}</th><td>{placements[place]}</td><td>{format ?? "—"}</td><td>{detail ?? "—"}</td></tr>
+          <tbody>{competitions.map(({ event, place, format, participation, detail }) => (
+            <tr><th scope="row">{event}</th><td>{placements[place]}</td><td>{participation === "Solo" ? "Solo entry" : format}</td><td>{detail ?? "—"}</td></tr>
           ))}</tbody>
         </table>
       </div>

@@ -1,7 +1,8 @@
 ---
+import { Image } from "astro:assets";
+import forest from "../assets/forest-wanderer.webp";
 import { Icon } from "astro-icon/components";
 import BaseLayout from "../components/BaseLayout.astro";
-import SectionHeading from "../components/SectionHeading.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import FieldNote from "../components/FieldNote.astro";
 import { profile } from "../data/profile";
@@ -10,39 +11,47 @@ import { projects } from "../data/projects";
 import { writeups } from "../data/writeups";
 
 const expertise = [
-  { title: "Web & API", detail: "Application behaviour, authentication, and trust boundaries." },
-  { title: "Network", detail: "Service discovery, fingerprinting, and evidence-led triage." },
-  { title: "Active Directory", detail: "Windows environments, identity, and authentication." },
+  { title: "Web & API", detail: "I test how applications handle data, authenticate users, and enforce access." },
+  { title: "Network", detail: "I map exposed services and verify what each one reveals about the network." },
+  { title: "Active Directory", detail: "I study how identity, permissions, and authentication shape security in Windows domains." },
 ];
 ---
-<BaseLayout description="Arman Mishra, CPTS- and PJPT-certified penetration tester focused on web applications, internal networks, and Active Directory.">
-  <section class="container hero">
-    <div class="hero-copy">
-      <p class="eyebrow">Penetration Tester</p>
-      <h1>Arman <em>Mishra.</em></h1>
-      <p class="hero-tagline">{profile.tagline}</p>
-      <p class="hero-description">I test web applications, internal networks, and Active Directory. I build tools to document the evidence and am working toward red team operations.</p>
-      <p class="hero-proof"><a href="/certifications/">CPTS · PJPT</a> <span aria-hidden="true">·</span> <a href="/achievements/">{wins} CTF wins · {podiums} podiums · Dante 100%</a></p>
-      <p class="hero-availability">{profile.availability}.</p>
-      <div class="hero-actions">
-        <a class="button button-primary" href="/projects/">Explore projects <Icon name="lucide:arrow-up-right" /></a>
-        <a class="button button-secondary" href="/writeups/">Read writeups</a>
-        <a class="text-link" href="/resume/">Résumé <Icon name="lucide:arrow-up-right" /></a>
+<BaseLayout description="Arman Mishra is a CPTS- and PJPT-certified penetration tester and cybersecurity researcher focused on web apps, APIs, internal networks, and Active Directory.">
+  <div class="home-hero">
+    <section class="container hero" aria-labelledby="home-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Penetration tester &amp; security researcher</p>
+        <h1 id="home-title">Arman <em>Mishra.</em></h1>
+        <p class="hero-tagline">{profile.tagline}</p>
+        <p class="hero-description">I test web apps, APIs, internal networks, and Active Directory. I build tools to make assessments easier to document and reproduce.</p>
+        <p class="hero-proof"><a href="/certifications/">CPTS · PJPT</a> <span aria-hidden="true">·</span> <a href="/achievements/">{wins} CTF wins · {podiums} podiums · HTB Dante completed</a></p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="/about/" data-astro-prefetch>About me <Icon name="lucide:arrow-up-right" /></a>
+          <a class="button button-secondary" href="/projects/" data-astro-prefetch>Explore projects</a>
+          <a class="text-link" href="/resume/">Résumé <Icon name="lucide:arrow-up-right" /></a>
+        </div>
+        <div class="hero-socials">
+          <a href={profile.github} rel="me"><Icon name="lucide:github" /> GitHub</a>
+          <a href={profile.linkedin} rel="me"><Icon name="lucide:linkedin" /> LinkedIn</a>
+          <a href={`mailto:${profile.email}`}><Icon name="lucide:mail" /> Email</a>
+        </div>
       </div>
-      <div class="hero-socials">
-        <a href={profile.github} rel="me"><Icon name="lucide:github" /> GitHub</a>
-        <a href={profile.linkedin} rel="me"><Icon name="lucide:linkedin" /> LinkedIn</a>
-        <a href={`mailto:${profile.email}`}><Icon name="lucide:mail" /> Email</a>
-      </div>
-    </div>
-    <figure class="hero-art hero-ascii">
-      <ascii-art piece="rainforest-falls-mist" size="5" speed="0.7" aria-label="Rainforest Falls Mist, animated ASCII landscape"></ascii-art>
-    </figure>
-    <script is:inline type="module" src="https://www.ascii-magic.com/ascii/ascii.js"></script>
-  </section>
+      <figure class="hero-art">
+        <div class="hero-art-stage">
+          <Image src={forest} width={640} widths={[400, 640, 960]} sizes="(max-width: 760px) calc(100vw - 36px), (max-width: 1300px) 45vw, 560px" format="webp" quality={72} alt="A lone wanderer looking out over a misty forest" loading="eager" decoding="async" fetchpriority="high" />
+          <div class="ascii-stage" data-ascii-stage hidden></div>
+        </div>
+        <figcaption>
+          <span data-art-caption>Forest illustration</span>
+          <button class="art-toggle" type="button" aria-pressed="false" hidden data-ascii-toggle>Animate ASCII</button>
+          <span class="visually-hidden" role="status" data-ascii-status></span>
+        </figcaption>
+      </figure>
+    </section>
+  </div>
 
   <section class="container section">
-    <SectionHeading eyebrow="Expertise" title="Where I work" />
+    <h2 class="section-title">What I test</h2>
     <div class="expertise-grid">
       {expertise.map(({ title, detail }) => <article><h3>{title}</h3><p>{detail}</p></article>)}
     </div>
@@ -52,16 +61,15 @@ const expertise = [
   <section class="section section-soft">
     <div class="container split-section">
       <div>
-        <div class="eyebrow">Methodology</div>
         <h2>Enumeration first.</h2>
-        <p>Every finding starts as a hypothesis. I trace it back to the evidence, validate the impact, and document what the results support.</p>
+        <p>I start by mapping what’s exposed, then verify what I can reach and why it matters. I document the evidence so another tester can reproduce the finding.</p>
       </div>
       <FieldNote />
     </div>
   </section>
 
   <section class="container section">
-    <SectionHeading eyebrow="Selected projects" title="Tools and lab work" />
+    <h2 class="section-title">Tools and lab work</h2>
     <div class="project-grid">
       {projects.map((project, index) => <ProjectCard project={project} featured={index === 0} />)}
     </div>
@@ -69,30 +77,28 @@ const expertise = [
 
   <section class="section section-soft">
     <div class="container">
-      <SectionHeading eyebrow="Research" title="Field notes" />
+      <h2 class="section-title">Security writeups</h2>
       {writeups.length > 0 ? (
         <ul class="editorial-list">
           {writeups.slice(0, 3).map((post) => (
             <li><a href={`/writeups/${post.slug}/`}><span><small>{post.category} · {post.readingMinutes} min read</small>{post.title}</span><Icon name="lucide:arrow-up-right" /></a></li>
           ))}
         </ul>
-      ) : <p class="lead">Published articles will appear here when available.</p>}
-      <a class="text-link section-end-link" href="/writeups/">Browse writeups <Icon name="lucide:arrow-up-right" /></a>
+      ) : <p class="lead">Read about my tools and Windows lab in the <a class="inline-link" href="/projects/">project case studies</a>.</p>}
+      {writeups.length > 0 && <a class="text-link section-end-link" href="/writeups/">Browse all writeups <Icon name="lucide:arrow-up-right" /></a>}
     </div>
   </section>
 
   <section class="container section split-section">
     <div>
-      <div class="eyebrow">Achievements</div>
       <h2>Beyond the lab</h2>
       <p>CTF competition wins, independent vulnerability disclosures, and challenge development for HackVerse.</p>
       <a class="text-link" href="/achievements/">Achievements and recognition <Icon name="lucide:arrow-up-right" /></a>
     </div>
     <div>
-      <div class="eyebrow">About</div>
-      <h2>Arman Mishra</h2>
-      <p>I’m studying cybersecurity at Lovely Professional University and building Windows lab environments to study identity and access.</p>
-      <a class="text-link" href="/about/">More about me <Icon name="lucide:arrow-up-right" /></a>
+      <h2>A little about me</h2>
+      <p>I study cybersecurity at Lovely Professional University. Away from the keyboard, I’m usually reading poetry, listening to music, or looking for a trail.</p>
+      <a class="text-link" href="/about/">Read my bio <Icon name="lucide:arrow-up-right" /></a>
     </div>
   </section>
 

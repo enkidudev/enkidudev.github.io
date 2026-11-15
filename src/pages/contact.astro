@@ -5,19 +5,18 @@ import { profile } from "../data/profile";
 <BaseLayout title="Contact" description="Contact Arman Mishra about security research, penetration testing, CTF development, and opportunities.">
   <section class="page-hero container">
     <h1>Contact</h1>
-    <p class="lead">{profile.availability}. Email me about roles, security research, CTF collaboration, or responsible disclosure.</p>
+    <p class="lead">{profile.availability}. Get in touch about internships, security research, CTF projects, or responsible disclosure.</p>
   </section>
   <section class="container section">
     <div class="contact-grid">
       <div class="contact-card contact-card-primary">
         <span>EMAIL</span>
         <strong><a href={`mailto:${profile.email}?subject=Hello%20Arman`}>{profile.email}</a></strong>
-        <small>Send a message directly to my inbox.</small>
         <button class="button button-secondary" type="button" data-copy-email={profile.email}>Copy email address</button>
-        <small class="small-note" data-copy-status aria-live="polite">Copy this address for later.</small>
+        <small class="small-note" data-copy-status aria-live="polite"></small>
       </div>
       <a class="contact-card" href={profile.linkedin} target="_blank" rel="noopener noreferrer">
-        <span>LINKEDIN</span><strong>Connect professionally</strong><small>{new URL(profile.linkedin).hostname.replace(/^www\./, "") + new URL(profile.linkedin).pathname.replace(/\/$/, "")} ↗</small>
+        <span>LINKEDIN</span><strong>Connect on LinkedIn</strong><small>{new URL(profile.linkedin).hostname.replace(/^www\./, "") + new URL(profile.linkedin).pathname.replace(/\/$/, "")} ↗</small>
       </a>
       <a class="contact-card" href={profile.github} target="_blank" rel="noopener noreferrer">
         <span>GITHUB</span><strong>Explore my code</strong><small>github.com/enkidudev ↗</small>
