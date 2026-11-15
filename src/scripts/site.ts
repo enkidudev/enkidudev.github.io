@@ -64,49 +64,42 @@ function initializeTypewriter(signal: AbortSignal) {
 function initializeAscii(signal: AbortSignal) {
   const stage = document.querySelector<HTMLElement>("[data-ascii-stage]");
   const toggle = document.querySelector<HTMLButtonElement>("[data-ascii-toggle]");
-  const caption = document.querySelector<HTMLElement>("[data-art-caption]");
   const status = document.querySelector<HTMLElement>("[data-ascii-status]");
-  if (!stage || !toggle || !caption || !status) return;
+  if (!stage || !toggle || !status) return;
 
   const moduleUrl = "https://www.ascii-magic.com/ascii/ascii.js";
+  const motion = matchMedia("(prefers-reduced-motion: reduce)");
   let observer: MutationObserver | undefined;
+  let art: HTMLElement | undefined;
   let timer = 0;
   let attempt = 0;
 
-  const reset = (message = "") => {
+  const fail = () => {
     attempt += 1;
     window.clearTimeout(timer);
     observer?.disconnect();
-    stage.hidden = true;
     stage.replaceChildren();
-    toggle.disabled = false;
-    toggle.setAttribute("aria-pressed", "false");
-    toggle.textContent = message ? "Retry ASCII" : "Animate ASCII";
-    caption.textContent = "Forest illustration";
-    status.textContent = message;
+    art = undefined;
+    stage.hidden = true;
+    status.textContent = "ASCII artwork could not load.";
+    status.hidden = false;
+    toggle.textContent = "Retry ASCII";
+    toggle.hidden = false;
   };
 
-  const fail = () => reset("The ASCII animation could not load.");
-  toggle.hidden = false;
-  toggle.addEventListener("click", async () => {
-    if (!stage.hidden) {
-      reset();
-      return;
-    }
-
+  const loadArt = async () => {
     const current = ++attempt;
-    toggle.disabled = true;
-    toggle.textContent = "Loading ASCII…";
-    status.textContent = "";
+    toggle.hidden = true;
+    status.textContent = "Loading ASCII artwork…";
     timer = window.setTimeout(fail, 8000);
     try {
       await import(/* @vite-ignore */ moduleUrl);
       if (current !== attempt || signal.aborted) return;
-      const art = document.createElement("ascii-art");
+      art = document.createElement("ascii-art");
       art.setAttribute("piece", "rainforest-falls-mist");
       art.setAttribute("speed", "0.7");
       art.setAttribute("size", String(Math.min(5, (stage.parentElement?.clientWidth ?? 300) / 118)));
-      art.setAttribute("aria-label", "Rainforest Falls Mist, animated ASCII landscape");
+      art.setAttribute("aria-label", "Rainforest Falls Mist, ASCII landscape");
       stage.append(art);
 
       const root = art.shadowRoot;
@@ -115,27 +108,39 @@ function initializeAscii(signal: AbortSignal) {
         return;
       }
       observer = new MutationObserver(() => {
-        const text = root.querySelector("pre")?.textContent;
-        if (text?.startsWith("ascii-art:")) {
+        const frame = root.querySelector("pre")?.textContent;
+        if (frame?.startsWith("ascii-art:")) {
           fail();
           return;
         }
-        if (!root.querySelector("canvas") && !text) return;
+        if (!root.querySelector("canvas") && !frame) return;
         window.clearTimeout(timer);
         observer?.disconnect();
         stage.hidden = false;
-        toggle.disabled = false;
-        toggle.setAttribute("aria-pressed", "true");
-        toggle.textContent = "Stop ASCII";
-        caption.textContent = "Rainforest Falls Mist";
+        status.hidden = true;
+        toggle.hidden = motion.matches;
+        toggle.textContent = "Pause ASCII";
       });
       observer.observe(root, { childList: true, subtree: true, characterData: true });
     } catch {
       if (current === attempt && !signal.aborted) fail();
     }
+  };
+
+  toggle.addEventListener("click", () => {
+    if (!art) {
+      void loadArt();
+      return;
+    }
+    toggle.textContent = art.toggleAttribute("still") ? "Resume ASCII" : "Pause ASCII";
   }, { signal });
 
-  signal.addEventListener("abort", () => reset(), { once: true });
+  signal.addEventListener("abort", () => {
+    window.clearTimeout(timer);
+    observer?.disconnect();
+    stage.replaceChildren();
+  }, { once: true });
+  void loadArt();
 }
 
 let pageListeners: AbortController | undefined;

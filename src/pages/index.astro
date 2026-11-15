@@ -1,6 +1,4 @@
 ---
-import { Image } from "astro:assets";
-import forest from "../assets/forest-wanderer.webp";
 import { Icon } from "astro-icon/components";
 import BaseLayout from "../components/BaseLayout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
@@ -38,13 +36,12 @@ const expertise = [
       </div>
       <figure class="hero-art">
         <div class="hero-art-stage">
-          <Image src={forest} width={640} widths={[400, 640, 960]} sizes="(max-width: 760px) calc(100vw - 36px), (max-width: 1300px) 45vw, 560px" format="webp" quality={72} alt="A lone wanderer looking out over a misty forest" loading="eager" decoding="async" fetchpriority="high" />
           <div class="ascii-stage" data-ascii-stage hidden></div>
+          <p class="ascii-status" role="status" data-ascii-status>Rainforest Falls Mist</p>
         </div>
         <figcaption>
-          <span data-art-caption>Forest illustration</span>
-          <button class="art-toggle" type="button" aria-pressed="false" hidden data-ascii-toggle>Animate ASCII</button>
-          <span class="visually-hidden" role="status" data-ascii-status></span>
+          <span>Rainforest Falls Mist</span>
+          <button class="art-toggle" type="button" hidden data-ascii-toggle>Pause ASCII</button>
         </figcaption>
       </figure>
     </section>
