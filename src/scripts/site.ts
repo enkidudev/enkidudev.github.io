@@ -109,17 +109,18 @@ function initializeAscii(signal: AbortSignal) {
       art.setAttribute("aria-label", "Rainforest Falls Mist, animated ASCII landscape");
       stage.append(art);
 
-      const frame = art.shadowRoot?.querySelector("pre");
-      if (!frame) {
+      const root = art.shadowRoot;
+      if (!root) {
         fail();
         return;
       }
       observer = new MutationObserver(() => {
-        if (!frame.textContent) return;
-        if (frame.textContent.startsWith("ascii-art:")) {
+        const text = root.querySelector("pre")?.textContent;
+        if (text?.startsWith("ascii-art:")) {
           fail();
           return;
         }
+        if (!root.querySelector("canvas") && !text) return;
         window.clearTimeout(timer);
         observer?.disconnect();
         stage.hidden = false;
@@ -128,7 +129,7 @@ function initializeAscii(signal: AbortSignal) {
         toggle.textContent = "Stop ASCII";
         caption.textContent = "Rainforest Falls Mist";
       });
-      observer.observe(frame, { childList: true, subtree: true, characterData: true });
+      observer.observe(root, { childList: true, subtree: true, characterData: true });
     } catch {
       if (current === attempt && !signal.aborted) fail();
     }
