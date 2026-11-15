@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../../components/BaseLayout.astro";
+import { blogDate, blogPosts } from "../../data/blog";
+
+const posts = await blogPosts();
+---
+<BaseLayout title="Blog" description="Security exam reviews and cybersecurity articles by Arman Mishra.">
+  <header class="container page-hero">
+    <h1>Blog</h1>
+    <p class="lead">Security exam reviews and notes on cybersecurity.</p>
+  </header>
+  <section class="container section" aria-label="Published blog posts">
+    {posts.length ? (
+      <div class="writeup-grid">
+        {posts.map(({ data: { category, date, description, slug, title } }) => (
+          <article class="writeup-card">
+            <div class="project-meta">
+              <span>{category}</span>
+              <time datetime={date.toISOString()}>{blogDate.format(date)}</time>
+            </div>
+            <h2><a href={`/blog/${slug}/`}>{title}</a></h2>
+            <p>{description}</p>
+          </article>
+        ))}
+      </div>
+    ) : (
+      <div class="empty-state"><h2>No posts yet.</h2></div>
+    )}
+  </section>
+</BaseLayout>

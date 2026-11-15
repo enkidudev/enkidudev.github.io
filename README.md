@@ -43,6 +43,12 @@ Use level-two and level-three headings for the table of contents. Standard Markd
 
 Expressive Code adds syntax highlighting and code copying. Use a `bash` fence for shell snippets and `ansi` for terminal output. Optional fence metadata includes `title="Example"`, `showLineNumbers`, `{2-4}` for highlights, `ins={2}` and `del={3}` for changes, and `collapse={8-18}` for long sections.
 
+## Publishing blog posts
+
+Put blog posts in `blog/` in [security-writeups](https://github.com/enkidudev/security-writeups). The existing rebuild workflow syncs that folder and publishes eligible posts under `/blog/`. For a local preview, put them in `src/content/writeups/blog/`.
+
+Each Markdown file needs `title`, `description`, `date` (YYYY-MM-DD), `category` (`Exam Reviews` or `Security`), and a unique lowercase, hyphenated `slug`. Set `published: true` when a post is ready to appear on the site. Drafts stay off the site. Use a private local draft if its contents should also stay off the public source repository.
+
 ## Deployment
 
 GitHub Pages uses the existing Actions workflow. Pushes to `main` and `writeups_updated` repository dispatch events rebuild the site. The source workflow can use a repository secret named `PORTFOLIO_DISPATCH_TOKEN` to send that event. If the writeup repository becomes private, configure a read-only `WRITEUPS_REPO_READ_TOKEN` in the portfolio repository.

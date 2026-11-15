@@ -19,11 +19,11 @@ type MarkdownModule = {
 };
 
 const modules = import.meta.glob<MarkdownModule>(
-  ["../content/writeups/**/*.{md,mdx}", "../content/case-studies/*.md"],
+  ["../content/writeups/**/*.{md,mdx}", "!../content/writeups/blog/**", "../content/case-studies/*.md"],
   { eager: true }
 );
 
-const sources = import.meta.glob<string>(["../content/writeups/**/*.{md,mdx}", "../content/case-studies/*.md"], {
+const sources = import.meta.glob<string>(["../content/writeups/**/*.{md,mdx}", "!../content/writeups/blog/**", "../content/case-studies/*.md"], {
   query: "?raw", import: "default", eager: true,
 });
 

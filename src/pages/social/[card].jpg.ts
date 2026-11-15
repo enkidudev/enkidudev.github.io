@@ -1,12 +1,17 @@
 import type { APIRoute, GetStaticPaths } from "astro";
 import sharp from "sharp";
+import { blogPosts } from "../../data/blog";
 import { projects } from "../../data/projects";
 import { writeups } from "../../data/writeups";
 
-export const getStaticPaths: GetStaticPaths = () => [
+export const getStaticPaths: GetStaticPaths = async () => [
   ...projects.map(({ title, href }) => ({
     params: { card: href.split("/").filter(Boolean).join("-") },
     props: { title, category: "PROJECT" },
+  })),
+  ...(await blogPosts()).map(({ data: { title, slug } }) => ({
+    params: { card: `blog-${slug}` },
+    props: { title, category: "BLOG" },
   })),
   ...writeups.map(({ title, slug }) => ({
     params: { card: `writeups-${slug}` },
